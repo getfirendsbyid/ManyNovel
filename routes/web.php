@@ -12,7 +12,6 @@
 */
 
 Route::domain('{account}.navicat.com')->group(function ($account) {
-    dd($account);
    if (empty($account)){
        Route::get('/','HomeController@index');
    }else{
