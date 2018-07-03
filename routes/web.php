@@ -25,7 +25,6 @@ Route::domain('{account}.app.com')->group(function ($account) {
 
 
 Route::get('/book/{bookname}','HomeController@list');
-Route::get('/md','HomeController@web');
 
 Route::get('spider/getwebname','SpiderController@getwebname');
 Route::get('spider/getbookname','SpiderController@getbookname');
