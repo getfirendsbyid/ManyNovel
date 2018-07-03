@@ -21,7 +21,7 @@
 <nav class="navbar navbar-default navbar-fixed-top top-bar">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="{{$host}}">
+            <a href="http://www.{{$host}}">
                 <img class="hidden-xs" alt="键盘小说网" src="{{url('janpa/logo1.png')}}">
                 <img class="visible-xs-inline" alt="键盘小说网" src="{{url('janpa/logo2.png')}}">
             </a>
@@ -48,7 +48,7 @@
 
             <ul class="nav navbar-nav">
                 @foreach($nav as $item)
-                <li><a href="{{$host}}/{{$item->enname}}/">{{$item->name}}</a></li>
+                <li><a href="http://www.{{$host}}/{{$item->enname}}">{{$item->name}}</a></li>
                 @endforeach
             </ul>
 
@@ -59,7 +59,7 @@
                     <ul class="dropdown-menu" role="menu">
                         <!--导航-->
                         @foreach($nav as $item)
-                            <li><a href="{{$host}}/{{$item->enname}}/">{{$item->name}}</a></li>
+                            <li><a href="http://www.{{$host}}/{{$item->enname}}/">{{$item->name}}</a></li>
                         @endforeach
 
                         <script src="{{url('janpa/tongji.js')}}"></script>

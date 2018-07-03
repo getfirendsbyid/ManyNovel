@@ -10,25 +10,23 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//$yuming =  \App\Yuming::all();
+//$host = $_SERVER['HTTP_HOST'];
+//$domain =  str_before(str_after($host,'.'),':');
+//foreach ($yuming as $item){
 
-Route::domain('{account}.navicat.com')->group(function ($account) {
-   if (empty($account)){
-       Route::get('/','HomeController@index');
-   }else{
-       Route::get('/','HomeController@sonsite');
-   }
-   Route::get('/book/{bookid}/{chapterid}','HomeController@show');
+Route::domain('{account}.app.com')->group(function ($account) {
+
+    Route::get('/','HomeController@index');
+    Route::get('/book/{bookid}/{chapterid}','HomeController@show');
+
 });
 
-Route::get('/book/{bookname}','HomeController@list');
 
+
+Route::get('/book/{bookname}','HomeController@list');
+Route::get('/md','HomeController@web');
 
 Route::get('spider/getwebname','SpiderController@getwebname');
 Route::get('spider/getbookname','SpiderController@getbookname');
 Route::get('spider/getnoveldesc','SpiderController@getnoveldesc');
-
-
-
-
-
-
