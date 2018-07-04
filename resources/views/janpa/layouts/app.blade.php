@@ -8,7 +8,7 @@
     <title>{{$tdk->webname}}</title>
     <meta name="description" content="{{$tdk->description}}">
     <meta name="keywords" content="{{$tdk->keyword}}">
-    <link rel="shortcut icon" href="http://www.janpn.com/favicon.ico">
+    <link rel="shortcut icon" href="{{url('janpa/favicon.ico')}}">
     <link href="{{url('janpa/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{url('janpa/bootstrap-theme.min.css')}}" rel="stylesheet">
     <link href="{{url('janpa/list.css')}}" rel="stylesheet">
@@ -37,9 +37,8 @@
         <div id="navbar" class="collapse navbar-collapse">
             <div class="navbar-form navbar-left fullsearch-form">
                 <div class="input-group">
-                    <form target="_blank" name="formsearch" action="http://search..com/search">
+                    <form target="_blank" name="formsearch" action="http://zhannei.{{$host}}/search">
                         <input name="q" type="text" class="form-control" id="search-keyword" placeholder="请输入小说名称..">
-                        <input name="s" value="15947871991047423724" type="hidden">
                         <span class="input-group-btn btn-head">
                     <button class="btn btn-default" type="submit">搜索</button>
                     </span>
