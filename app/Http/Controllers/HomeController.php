@@ -11,45 +11,73 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-    public function index(Request $request,$account)
+    public function __construct()
     {
-        $host =  str_before(str_after($_SERVER['HTTP_HOST'],'.'),':');
-        if ($account=='www'){
-            $yuming =  Yuming::where(['host'=>$host])->first();
-            $nav = Nav::where(['hostid'=>$yuming->id])->get();
-            foreach ($nav as $key=>$item){
-                $nav[$key]['novel'] = Novel::where(['navid'=>$item->id])->take(20)->orderby('created_at','desc')->get();
-            }
-            return view($yuming->templet_name.'.index',compact('yuming','host','nav'));
+        $this->host = $_SERVER['HTTP_HOST'];
+        $this->domain =  str_after($this->host,'.');
+        $this->yuming =  Yuming::where(['host'=>$this->domain])->first();
+        $this->nav = Nav::where(['hostid'=>$this->yuming->id])->get();
+    }
+
+    public function index()
+    {
+        foreach ($this->nav as $key=>$item){
+            $this->nav[$key]['novel'] = Novel::where(['navid'=>$item->id])->take(20)->orderby('created_at','desc')->get();
+        }
+        return view($this->yuming->templet_name.'.index')->with(['tdk'=>$this->yuming,'nav'=>$this->nav,'host'=>$this->domain]);
+    }
+
+    public function fan($account)
+    {
+
+        $novel =  Novel::where(['enname'=>$account])->first();
+        if (empty($novel->toArray())){
+            return view($this->yuming->templet_name.'.nonovel');
         }else{
-            $yuming =  Yuming::where(['host'=>$host])->first();
-            $novel =  Novel::where(['enname'=>$account])->first();
-            if (empty($novel->toArray())){
-                return view($yuming->templet_name.'.nonovel');
-            }else{
-                $nav = Nav::where(['hostid'=>$yuming->id])->get();
-                $chapter = Chapter::find($novel->id);
-                $othernovel = Novel::where(['nav'=>$novel->navid])->take(40)->get();
-                return view($yuming->templet_name.'.sonlist',compact('othernovel','host','yuming','nav','novel','novel','chapter'));
-            }
+            $chapter = Chapter::find($novel->id);
+            $nav = Nav::find($novel->navid);
+            $othernovel = Novel::where(['nav'=>$novel->navid])->take(40)->get();
+            return view($this->yuming->templet_name.'.sonlist')->with([
+                'tdk'=>$this->yuming,
+                'nav'=>$this->nav,
+                'chapter'=>$chapter,
+                'othernovel'=>$othernovel,
+                'host'=>$this->domain,
+                'novel'=>$novel,
+                'navname'=>$nav->name
+            ]);
         }
     }
 
-    public function sonsite($account)
-    {
-        $host = $_SERVER['HTTP_HOST'];
-        $domain =  str_before(str_after($host,'.'),':');
 
+    public function nav($navname)
+    {
+        $where = ['hostid'=>$this->yuming->id,'enname'=>$navname];
+        $nav = Nav::where($where)->first();
+        $novel =Novel::where(['navid'=>$nav->id])->paginate(80);
+        return view($this->yuming->templet_name.'.nav')->with(['tdk'=>$this->yuming,'nav'=>$this->nav,'host'=>$this->domain,'novel'=>$novel,'navname'=>$nav->name]);
     }
 
-    public function lista(Request $request,$bookname)
+    public function chapterlist($bookname)
     {
-        $host = $_SERVER['HTTP_HOST'];
-        $domain =  str_after($host,'.');
-        $yuming =  Yuming::where(['host'=>$domain])->first();
-        $nav = Nav::where(['host'=>$yuming->id])->get();
-        $novel = Novel::where(['enname'=>$bookname])->get();
-        return view($yuming->templet_name.'.list',compact('yuming','nav','host','novel'));
+        $bookname = str_before($bookname,'.');
+        $novel =  Novel::where(['enname'=>$bookname])->first();
+        if (empty($novel->toArray())){
+            return view($this->yuming->templet_name.'.nonovel');
+        }else{
+            $chapter = Chapter::find($novel->id);
+            $nav = Nav::find($novel->navid);
+            $othernovel = Novel::where(['nav'=>$novel->navid])->take(40)->get();
+            return view($this->yuming->templet_name.'.sonlist')->with([
+                'tdk'=>$this->yuming,
+                'nav'=>$this->nav,
+                'chapter'=>$chapter,
+                'othernovel'=>$othernovel,
+                'host'=>$this->domain,
+                'novel'=>$novel,
+                'navname'=>$nav->name
+            ]);
+        }
     }
 
     public function show(){
@@ -58,5 +86,14 @@ class HomeController extends Controller
         $nav = Nav::where(['host'=>$host])->get();
         return view($yuming->templet_name.'.index',compact('yuming'));
     }
+
+
+    public function search(Request $request)
+    {
+        $data = $request->input('data');
+        $res =   Novel::where('name','like','%'.$data.'%')->get();
+        return view($this->yuming->templet_name.'.search')->with(['data'=>$res]);
+    }
+
 
 }

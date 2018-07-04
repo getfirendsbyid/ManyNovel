@@ -10,22 +10,29 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//$yuming =  \App\Yuming::all();
-//$host = $_SERVER['HTTP_HOST'];
-//$domain =  str_before(str_after($host,'.'),':');
-//foreach ($yuming as $item){
 
-Route::domain('{account}.app.com')->group(function ($account) {
 
+
+Route::domain('www.app.com')->group(function () {
     Route::get('/','HomeController@index');
-    Route::get('/book/{bookid}/{chapterid}','HomeController@show');
-
 });
 
+Route::domain('zhannei.app.com')->group(function () {
+    Route::get('/search','HomeController@search');
+});
 
+Route::domain('{account}.app.com')->group(function ($account) {
+    Route::get('/','HomeController@fan');
+});
 
-Route::get('/book/{bookname}','HomeController@list');
+Route::get('/book/{bookname}','HomeController@chapterlist');
+Route::get('/book/{bookid}/{chapterid}','HomeController@show');
+//Route::get('test','HomeController@test');
 
+Route::get('/{nav}','HomeController@nav');
 Route::get('spider/getwebname','SpiderController@getwebname');
 Route::get('spider/getbookname','SpiderController@getbookname');
 Route::get('spider/getnoveldesc','SpiderController@getnoveldesc');
+
+
+
