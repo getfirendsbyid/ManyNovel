@@ -11,24 +11,23 @@
 |
 */
 
-
-
 Route::domain('www.app.com')->group(function () {
-    Route::get('/','HomeController@index');
+    Route::middleware('CountSpider')->get('/','HomeController@index');
 });
 
 Route::domain('zhannei.app.com')->group(function () {
-    Route::get('/search','HomeController@search');
+    Route::middleware('CountSpider')->get('/search','HomeController@search');
 });
 
 Route::domain('{account}.app.com')->group(function ($account) {
-    Route::get('/','HomeController@fan');
+    Route::middleware('CountSpider')->get('/','HomeController@fan');
 });
 
 Route::get('/book/{bookname}','HomeController@chapterlist');
 Route::get('/book/{bookid}/{chapterid}','HomeController@show');
 //Route::get('test','HomeController@test');
 
+Route::get('hentai','AdminController@login');
 Route::get('/{nav}','HomeController@nav');
 Route::get('spider/getwebname','SpiderController@getwebname');
 Route::get('spider/getbookname','SpiderController@getbookname');
