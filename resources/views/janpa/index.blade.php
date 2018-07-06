@@ -1,6 +1,10 @@
 @extends('janpa.layouts.app')
 
 
+@section('title',$tdk->webname)
+@section('description',$tdk->description)
+@section('keywords',$tdk->keywords)
+
 @section('content')
 
 

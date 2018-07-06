@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!-- saved from url=(0045)http://www.janpn.com/book/7/7349/1491505.html -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title> 第二章 沐天的白色人生《氪无不胜》极速阅读.By.沧澜波涛短著 - 键盘小说网</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
@@ -78,10 +79,27 @@
         <!--//广告-->
     </div>
 </div>
-<script src="{{url('janpa')}}/footer.js.下载"></script><p class="fs-12 text-muted text-center hidden-xs">温馨提示：关闭浏览器时，请加入浏览器书签方便您下次继续阅读。</p><div class="back-to-top" title="返回顶部"><a href="http://www.janpn.com/book/7/7349/1491505.html#"><i class="fa fa-chevron-up"></i></a></div><footer><p><a href="http://www.janpn.com/templets/ad.html" target="_blank">广告服务</a> | <a href="http://www.janpn.com/templets/copyright.html" target="_blank">版权声明</a> | <a href="http://www.janpn.com/templets/call.html" target="_blank">联系我们</a> | <a href="http://new.cnzz.com/v1/login.php?siteid=1260419850" target="_blank">站长统计</a> | 冀ICP备12007938号-2</p><p>Copyright © 2018-2020 www.janpn.com 键盘小说网 版权所有.</p></footer><script src="{{url('janpa')}}/pagebottom.js.下载"></script>
-
-<script src="{{url('janpa')}}/pagebottom.js(1).下载"></script>
-<script src="{{url('janpa')}}/yuedu.js.下载"></script>
+<script src="{{url('janpa/footer.js')}}"></script>
+<p class="fs-12 text-muted text-center hidden-xs">温馨提示：关闭浏览器时，请加入浏览器书签方便您下次继续阅读。</p>
+<div class="back-to-top" title="返回顶部">
+    <a href="http://www.janpn.com/book/7/7349/1491505.html#"><i class="fa fa-chevron-up"></i></a>
+</div>
+<footer>
+    <p>
+        <a href="http://www.janpn.com/templets/ad.html" target="_blank">广告服务</a>
+        |
+        <a href="http://www.janpn.com/templets/copyright.html" target="_blank">版权声明</a>
+        |
+        <a href="http://www.janpn.com/templets/call.html" target="_blank">联系我们</a>
+        |
+        <a href="http://new.cnzz.com/v1/login.php?siteid=1260419850" target="_blank">站长统计</a>
+        |
+    </p>
+    <p>Copyright © 2018-2020 www.janpn.com 键盘小说网 版权所有.</p>
+</footer>
+<script src="{{url('janpa/pagebottom.js')}}"></script>
+<script src="{{url('janpa/pagebottom.js')}}"></script>
+<script src="{{url('janpa/yuedu.js')}}"></script>
 <script>
     var lastre=new LastRe();lastre.set('/book/zuowubusheng.html', '/book/zuowubusheng.html1491505.html', '氪无不胜', ' 第二章 沐天的白色人生');
     getset();

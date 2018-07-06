@@ -1,5 +1,9 @@
 @extends('janpa.layouts.app')
 
+@section('title',$nav->name.'小说,'.$nav->name.'[TXT小说下载]-鼠标小说网'),
+@section('description',$nav->name.'小说,'.$nav->name.'[TXT小说下载]-鼠标小说网')
+@section('keywords',$nav->name.'小说,'.$nav->name.'[TXT小说下载]-鼠标小说网')
+
 @section('content')
     <div class="clear"></div>
     <div class="copyright_list"></div>

@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{$tdk->webname}}</title>
-    <meta name="description" content="{{$tdk->description}}">
-    <meta name="keywords" content="{{$tdk->keyword}}">
+    <title>@yield('title')</title>
+    <meta name="description" content="@yield('description')">
+    <meta name="keywords" content="@yield('keywords')">
     <link rel="shortcut icon" href="{{url('janpa/favicon.ico')}}">
     <link href="{{url('janpa/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{url('janpa/bootstrap-theme.min.css')}}" rel="stylesheet">

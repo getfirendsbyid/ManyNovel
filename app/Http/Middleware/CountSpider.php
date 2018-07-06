@@ -15,6 +15,7 @@ class CountSpider
      */
     public function handle($request, Closure $next)
     {
+        $str = '61.8.38.58 - - [05/Jul/2018:14:28:25 +0800] "GET /janpa/favicon.ico HTTP/1.1" 200 1150 "http://www.zbtorch.cn/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"';
         $useragent = addslashes(strtolower($_SERVER['HTTP_USER_AGENT']));
 
         if (strpos($useragent, 'googlebot')!== false){$bot = 'Google';}

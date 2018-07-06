@@ -11,6 +11,7 @@
 |
 */
 
+Route::get('test','HomeController@test');
 Route::domain('www.app.com')->group(function () {
     Route::middleware('CountSpider')->get('/','HomeController@index');
 });
@@ -32,6 +33,4 @@ Route::get('/{nav}','HomeController@nav');
 Route::get('spider/getwebname','SpiderController@getwebname');
 Route::get('spider/getbookname','SpiderController@getbookname');
 Route::get('spider/getnoveldesc','SpiderController@getnoveldesc');
-
-
 

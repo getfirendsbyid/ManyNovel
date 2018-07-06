@@ -1,5 +1,9 @@
 @extends('janpa.layouts.app')
 
+@section('title','《'.$novel->name.'》'.$novel->name.'[免费阅读] - 鼠标小说网')
+@section('keywords',$novel->keywords)
+@section('description',$novel->description)
+
 @section('content')
     <!--手机上下篇-->
     <div class="row visible-xs-inline footer-bar">
