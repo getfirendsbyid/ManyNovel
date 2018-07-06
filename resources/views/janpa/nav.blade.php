@@ -1,14 +1,16 @@
+
 @extends('janpa.layouts.app')
 
-@section('title',$nav->name.'小说,'.$nav->name.'[TXT小说下载]-鼠标小说网'),
-@section('description',$nav->name.'小说,'.$nav->name.'[TXT小说下载]-鼠标小说网')
-@section('keywords',$nav->name.'小说,'.$nav->name.'[TXT小说下载]-鼠标小说网')
+@section('title',$navname.'小说,'.$navname.'[TXT小说下载]-鼠标小说网'),
+@section('description',$navname.'小说,'.$navname.'[TXT小说下载]-鼠标小说网')
+@section('keywords',$navname.'小说,'.$navname.'[TXT小说下载]-鼠标小说网')
+
+
 
 @section('content')
     <div class="clear"></div>
     <div class="copyright_list"></div>
     <div class="titleh_list">{{$navname}}小说</div>
-
     <div class="list">
         @foreach($novel as $item)
             <a title="{{$item->name}}" class="shop" href="http://{{$item->enname}}.{{$host}}">
