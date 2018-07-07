@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('test','HomeController@test');
 Route::domain('www.zbtorch.com')->group(function () {
     Route::middleware('CountSpider')->get('/','HomeController@index');
 });
