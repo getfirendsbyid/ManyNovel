@@ -12,15 +12,15 @@
 */
 
 Route::get('test','HomeController@test');
-Route::domain('www.app.com')->group(function () {
+Route::domain('www.zbtorch.com')->group(function () {
     Route::middleware('CountSpider')->get('/','HomeController@index');
 });
 
-Route::domain('zhannei.app.com')->group(function () {
+Route::domain('zhannei.zbtorch.cn')->group(function () {
     Route::middleware('CountSpider')->get('/search','HomeController@search');
 });
 
-Route::domain('{account}.app.com')->group(function ($account) {
+Route::domain('{account}.zbtorch.cn')->group(function ($account) {
     Route::middleware('CountSpider')->get('/','HomeController@fan');
 });
 
