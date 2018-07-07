@@ -33,4 +33,6 @@ Route::get('/{nav}','HomeController@nav');
 Route::get('spider/getwebname','SpiderController@getwebname');
 Route::get('spider/getbookname','SpiderController@getbookname');
 Route::get('spider/getnoveldesc','SpiderController@getnoveldesc');
+Route::get('spider/chapterlist','SpiderController@chapterlist');
+Route::get('spider/deletechapter','SpiderController@deletechapter');
 

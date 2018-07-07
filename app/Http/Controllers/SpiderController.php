@@ -13,6 +13,7 @@ use GuzzleHttp\Pool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use Josh\Component\PhantomJs\Facade\PhantomJs;
 use Overtrue\Pinyin\Pinyin;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -21,7 +22,7 @@ class SpiderController extends Controller
 
     private $totalPageCount;
     private $counter        = 1;
-    private $concurrency    = 1;  // 同时并发抓取
+    private $concurrency    = 100;  // 同时并发抓取
     private $xiaoshuo = [];
     private $bookurl = [];
 
@@ -158,19 +159,10 @@ class SpiderController extends Controller
                 $crawler = new Crawler();
                 $crawler->addHtmlContent($chapterdata);
                 $chapter =[];
-                dd($chapterdata);
                 //补充小说描述 封面 作者 热点 连载状态
-                $novel['description'] = $crawler = $crawler->filter('body > div:nth-child(6) > div ')->html();
-
-
-//                $list = $crawler->filter('body > div:nth-child(7) > div > div > div')->each(function (Crawler $node, $i) {
-//                    $novel['url'] = $node->filter('div:nth-child(3) > a')->html();
-//                    return $list = $novel;
-//                });
-
-
-
-                dd($novel);
+//                dd($chapterdata);
+                $novel['description'] = str_before(str_after($chapterdata,$this->novel[$index]['name'].' [小说简介]:</span>'),' </p>');
+                $novel['novel_url'] = str_before(str_after($chapterdata,"btn-primary btn-block\' href="),' target=_blank>');
 
                 $novelbool =  Novel::where(['id'=>$this->novel[$index]['id']])->update($novel);
 
@@ -206,7 +198,7 @@ class SpiderController extends Controller
         $requests = function ($total) use ($client) {
             foreach ($this->novel as $key => $uri) {
                 yield function() use ($client, $uri) {
-                    return $client->getAsync($uri['url']);
+                    return $client->getAsync($uri['novel_url']);
                 };
             }
         };
@@ -215,33 +207,27 @@ class SpiderController extends Controller
             'concurrency' => $this->concurrency,
             'fulfilled'   => function ($response, $index){
                 $chapterdata =   mb_convert_encoding($response->getBody()->getContents(), 'utf-8', 'GBK,UTF-8,ASCII');
-                echo "请求第 $index 个请求，小说" . $this->novel[$index]['url'] . "的章节正在爬取";
+//                echo "请求第 $index 个请求，小说" . $this->novel[$index]['novel_url'] . "的章节正在爬取";
+                echo "请求第 $index 个请求，小说" . 'http://www.janpn.com/book/nuanhun.html' . "的章节正在爬取";
                 echo '<br>';
                 $crawler = new Crawler();
                 $crawler->addHtmlContent($chapterdata);
                 $chapter =[];
                 //补充小说描述 封面 作者 热点 连载状态
-                $novel['cover_img_url'] = $crawler->filterXPath('//*[@id="fmimg"]/img')->attr('src');
-                $novel['description'] = $crawler->filterXPath('//*[@id="intro"]/p/text()')->text();
-                $novel['author'] = str_after($crawler->filterXPath('//*[@id="info"]/p[1]')->text(),'：') ;
-                $novel['hot'] = rand(10000,999999);
-                $novel['lasttime'] = str_after($crawler->filterXPath('//*[@id="info"]/p[3]')->text(),'：');
-                $novelbool =  Novel::where(['id'=>$this->novel[$index]['id']])->update($novel);
-
-                if ($novelbool){
-                    echo '小说作者信息补全完整';
-                    echo '<br>';
-                    echo '开始采集章节标题';
-                }
-
-                $list = $crawler->filter('#list > dl > dd')->each(function (Crawler $node, $i) {
-                    $chapter['name'] =  $node->filter('dd > a')->text();
-                    $chapter['url'] =  $this->url.$node->filter('dd > a')->attr('href');
-                    $chapter['created_at'] = date('Y-m-d');
-                    $chapter['updated_at'] = date('Y-m-d');
-                    $chapter['number'] = $i;
-                    return $list = $chapter;
+                $list = $crawler->filter('  body > div.container.body-content > div:nth-child(3) > ul > li')->each(function (Crawler $node, $i) {
+                    $chapter1['name'] =  $node->filter('li ')->text();
+                    if (!empty($chapter1['name'])){
+                        $chapter['name'] =  $node->filter('li > a')->text();
+                        $chapter['chapter_url'] =  $node->filter('li > a')->attr('href');
+                        $chapter['created_at'] = date('Y-m-d h:i:s');
+                        $chapter['updated_at'] = date('Y-m-d h:i:s');
+                        $chapter['chapter_number'] = $i+1;
+                        return $list = $chapter;
+                    }
                 });
+
+                $list = array_filter($list);
+
                 $chapter['novelid'] = $this->novel[$index]['id'];
                 foreach ($list as $key=> $item){
                     $list[$key]['novelid'] = $this->novel[$index]['id'];
@@ -250,6 +236,7 @@ class SpiderController extends Controller
                 if ($bool){
                     echo $this->novel[$index]['name'].'章节抓取完成插入';
                     echo '<br>';
+                    $list = null; //设置为null 销毁内存
                 }
                 ob_flush();
                 flush();
@@ -266,50 +253,7 @@ class SpiderController extends Controller
     }
 
 
-    public function getchaptercontent()
-    {
-            ini_set('max_execution_time', '0');
-            ini_set('memory_limit','3072M');
-            $client = new Client();
-            $this->chapter = Chapter::all()->toArray();
-            $this->totalPageCount = count($this->chapter);
-            $requests = function ($total) use ($client) {
-                foreach ($this->chapter as $key => $uri) {
-                    yield function() use ($client, $uri) {
-                        return $client->getAsync($uri['url']);
-                    };
-                }
-            };
 
-            $pool = new Pool($client, $requests($this->totalPageCount), [
-                'concurrency' => $this->concurrency,
-                'fulfilled'   => function ($response, $index){
-                    $chapterdata =   mb_convert_encoding($response->getBody()->getContents(), 'utf-8', 'GBK,UTF-8,ASCII');
-                    echo "请求第 .$index. 个请求，章节" . $this->chapter[$index]['url'] . "的内容正在爬取";
-                    echo '<br>';
-                    $crawler = new Crawler();
-                    $crawler->addHtmlContent($chapterdata);
-                    $chapter =[];
-                    //补充小说描述 封面 作者 热点 连载状态
-                    $novel['content'] = $crawler->filterXPath('//*[@id="content"]')->text();
-
-                    $novelbool =  Chapter::where(['id'=>$this->chapter[$index]['id']])->update($novel);
-                    if ($novelbool){
-                        echo "章节" . $this->chapter[$index]['url'] . "的内容存储完成";
-                    }
-                    ob_flush();
-                    flush();
-                    $this->countedAndCheckEnded();
-                },
-                'rejected' => function ($reason, $index){
-//                    log('test',"rejected" );
-//                    log('test',"rejected reason: " . $reason );
-                    $this->countedAndCheckEnded();
-                },
-            ]);
-        $promise = $pool->promise();
-        $promise->wait();
-    }
 
     public function countedAndCheckEnded()
     {

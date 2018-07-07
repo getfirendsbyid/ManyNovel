@@ -1,9 +1,7 @@
 @extends('janpa.layouts.app')
-
 @section('title',$navname.'小说,'.$navname.'[TXT小说下载]-鼠标小说网')
 @section('description',$navname.'小说,'.$navname.'[TXT小说下载]-鼠标小说网')
 @section('keywords',$navname.'小说,'.$navname.'[TXT小说下载]-鼠标小说网')
-
 
 @section('content')
     <div class="clear"></div>
@@ -24,7 +22,6 @@
             </a>
         @endforeach
     </div>
-
     <div class="clear"></div>
     <div class="text-center">
         {{ $novel->links() }}
