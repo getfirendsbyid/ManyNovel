@@ -66,10 +66,11 @@
     <div class="container">
         <div class="row movie">
             <div class="col-md-12 info">
-                <p><span class="header str-over-dot">{{$novel->name}} [小说目录] 更新时间：{{$novel->updated_at}}</span> </p>
-                {{--@foreach($chapter as $item)--}}
-                {{--<li>第{{$item->chapter_number}}章 {{$item->name}}</li>--}}
-                {{--@endforeach--}}
+                <p><span class="header str-over-dot">{{$novel->name}} [小说目录]1 更新时间：{{$novel->updated_at}}</span> </p>
+123123
+                @foreach($chapter as $item)
+                <li>第{{$item->chapter_number}}章 {{$item->name}}</li>
+                @endforeach
             </div>
         </div>
     </div>

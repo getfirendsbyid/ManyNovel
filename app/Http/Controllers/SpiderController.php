@@ -254,6 +254,56 @@ class SpiderController extends Controller
 
 
 
+    public function chaptercontent()
+    {
+        ini_set('max_execution_time', '0');
+        ini_set('memory_limit','1024M');
+        $this->novel = Chapter::all()->toArray();
+        $this->totalPageCount = count($this->novel);
+        $client = new Client();
+        $requests = function ($total) use ($client) {
+            foreach ($this->novel as $key => $uri) {
+                yield function() use ($client, $uri) {
+                    return $client->getAsync($uri['chapter_url']);
+                };
+            }
+        };
+
+        $pool = new Pool($client, $requests($this->totalPageCount), [
+            'concurrency' => $this->concurrency,
+            'fulfilled'   => function ($response, $index){
+                $chapterdata =   mb_convert_encoding($response->getBody()->getContents(), 'utf-8', 'GBK,UTF-8,ASCII');
+//                echo "请求第 $index 个请求，小说" . $this->novel[$index]['novel_url'] . "的章节正在爬取";
+                echo "请求第 $index 个请求，小说" . $this->novel[$index]['chapter_url'] . "的章节正在爬取";
+                echo '<br>';
+                $crawler = new Crawler();
+                $crawler->addHtmlContent($chapterdata);
+                $chapterdata =[];
+                //补充小说描述 封面 作者 热点 连载状态
+
+                $chapterdata['chapter_content'] = $crawler->filterXPath('//*[@id="htmlContent"]')->text();
+                $chapter =  Chapter::find($this->novel[$index]['id']);
+                $chapter->chapter_content = $chapterdata['chapter_content'];
+                $bool = $chapter->save();
+                if ($bool){
+                    echo $this->novel[$index]['name'].'章节抓取完成插入';
+                    echo '<br>';
+                    $list = null; //设置为null 销毁内存
+                }
+                ob_flush();
+                flush();
+                $this->countedAndCheckEnded();
+            },
+            'rejected' => function ($reason, $index){
+//                    log('test',"rejected" );
+//                    log('test',"rejected reason: " . $reason );
+                $this->countedAndCheckEnded();
+            },
+        ]);
+        $promise = $pool->promise();
+        $promise->wait();
+    }
+
 
     public function countedAndCheckEnded()
     {
