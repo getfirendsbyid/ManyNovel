@@ -92,6 +92,7 @@ class HomeController extends Controller
     }
 
     public function show($bookid,$chapterid){
+        $chapterid = str_before($chapterid,'.html');
         $chapter =  Chapter::find($chapterid);
         $novel =  Novel::find($bookid);
         $nav = Nav::find($novel->navid);
