@@ -7,11 +7,29 @@
 @section('content')
     <!--手机上下篇-->
     <div class="row visible-xs-inline footer-bar">
-        <div class="col-xs-3 text-center"><a title="上一章" class="btn btn-default" href="http://{{$befor_novel->enname}}.{{$host}}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
-        </div>
+        @if(empty($befo_novel))
+            <div class="col-xs-3 text-center">
+                <a title="没有啦" class="btn btn-default" href="/">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+        @else
+            <div class="col-xs-3 text-center">
+                <a title="上一章" class="btn btn-default" href="http://{{$befor_novel->enname}}.{{$host}}/">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+            </div>
+        @endif
         <div class="col-xs-6 text-center"></div>
-        <div class="col-xs-3 text-center"><a title="下一章" class="btn btn-default" href="http://{{$last_novel->enname}}.{{$host}}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
-        </div>
+        @if(empty($last_novel))
+            <div class="col-xs-3 text-center">
+                <a title="没有啦" class="btn btn-default" href="/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        @else
+            <div class="col-xs-3 text-center">
+                <a title="下一章" class="btn btn-default" href="http://{{$last_novel->enname}}.{{$host}}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        @endif
     </div>
     <!--//手机上下篇-->
 
