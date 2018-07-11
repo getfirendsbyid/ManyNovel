@@ -39,10 +39,14 @@ class HomeController extends Controller
             $chapter = Chapter::where(['novelid'=>$novel->id])->get();
             $nav = Nav::find($novel->navid);
             $othernovel = Novel::where(['navid'=>$novel->navid])->take(40)->get();
+            $befor_novel = Novel::where('id','<',$novel->id)->orderBy('id','desc')->first();
+            $last_novel = Novel::where('id','>',$novel->id)->orderBy('id','asc')->first();
             return view($this->yuming->templet_name.'.sonlist')->with([
                 'tdk'=>$this->yuming,
                 'nav'=>$this->nav,
                 'chapter'=>$chapter,
+                'befor_novel'=>$befor_novel,
+                'last_novel'=>$last_novel,
                 'othernovel'=>$othernovel,
                 'host'=>$this->domain,
                 'novel'=>$novel,
