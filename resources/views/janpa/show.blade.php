@@ -64,7 +64,7 @@
                 @if(empty($befor_chapter))
                 <a class="btn btn-default" href="/"><i class="fa fa-arrow-circle-left fa-fw"></i>没有啦</a>
                 @else
-                    {{$befor_chapter}}
+                    {{dd($befor_chapter)}}
                     <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$befor_chapter->id}}.html"><i class="fa fa-arrow-circle-left fa-fw"></i>上一章</a>
                     @endif
                 <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->enname}}.html"><i class="fa fa-list fa-fw"></i>章节目录</a>
