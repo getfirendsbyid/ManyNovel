@@ -64,8 +64,7 @@
                 @if(empty($befor_chapter))
                 <a class="btn btn-default" href="/"><i class="fa fa-arrow-circle-left fa-fw"></i>没有啦</a>
                 @else
-                    {{dd($befor_chapter)}}
-                    {{--<a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$befor_chapter->id}}.html"><i class="fa fa-arrow-circle-left fa-fw"></i>上一章</a>--}}
+                    <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$befor_chapter->id}}.html"><i class="fa fa-arrow-circle-left fa-fw"></i>上一章</a>
                     @endif
                 <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->enname}}.html"><i class="fa fa-list fa-fw"></i>章节目录</a>
 
@@ -87,9 +86,18 @@
             <!--广告-->
             <!--//广告-->
             <p class="text-center readPager">
-                <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$befor_chapter->id}}.html"><i class="fa fa-arrow-circle-left fa-fw"></i>上一章</a>
+                @if(empty($befor_chapter))
+                    <a class="btn btn-default" href="/"><i class="fa fa-arrow-circle-left fa-fw"></i>没有啦</a>
+                @else
+                    <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$befor_chapter->id}}.html"><i class="fa fa-arrow-circle-left fa-fw"></i>上一章</a>
+                @endif
                 <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->enname}}.html"><i class="fa fa-list fa-fw"></i>章节目录</a>
-                <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$last_chapter->id}}.html">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
+
+                @if(empty($last_chapter))
+                    <a class="btn btn-default" href="/">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
+                @else
+                    <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$last_chapter->id}}.html">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
+                @endif
             </p>
             <p class="text-center readPager">
                 <a class="btn btn-default" href="http://www.{{$host}}"><i class="fa fa-home fa-fw"></i>返回首页</a>
