@@ -61,7 +61,7 @@
             <!--广告-->
             <!--//广告-->
             <p class="text-center readPager">
-                {{dd(empty($novel))}}
+                {{dd($novel->isEmpty())}}
                 @if(empty($novel))
                 <a class="btn btn-default" href="/"><i class="fa fa-arrow-circle-left fa-fw"></i>没有啦</a>
                 @else
