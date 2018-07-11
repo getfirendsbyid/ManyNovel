@@ -61,8 +61,6 @@
                         @foreach($nav as $item)
                             <li><a href="http://www.{{$host}}/{{$item->enname}}/">{{$item->name}}</a></li>
                         @endforeach
-
-                        <script src="{{url('janpa/tongji.js')}}"></script>
                         <!--//导航-->
                     </ul>
                 </li>

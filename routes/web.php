@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('sitemap.xml','HomeController@sitemap');
+
+
 Route::domain('www.app.cn')->group(function () {
     Route::middleware('CountSpider')->get('/','HomeController@index');
 });
@@ -34,4 +37,6 @@ Route::get('spider/getbookname','SpiderController@getbookname');
 Route::get('spider/getnoveldesc','SpiderController@getnoveldesc');
 Route::get('spider/chapterlist','SpiderController@chapterlist');
 Route::get('spider/chaptercontent','SpiderController@chaptercontent');
+
+
 

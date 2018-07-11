@@ -7,10 +7,10 @@
 @section('content')
     <!--手机上下篇-->
     <div class="row visible-xs-inline footer-bar">
-        <div class="col-xs-3 text-center"><a title="上一章" class="btn btn-default" href="http://sibiao.janpn.com/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        <div class="col-xs-3 text-center"><a title="上一章" class="btn btn-default" href="http://{{$befor_novel->enname}}.{{$host}}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
         </div>
         <div class="col-xs-6 text-center"></div>
-        <div class="col-xs-3 text-center"><a title="下一章" class="btn btn-default" href="http://hexuchengshi.janpn.com/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        <div class="col-xs-3 text-center"><a title="下一章" class="btn btn-default" href="http://{{$last_novel->enname}}.{{$host}}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </div>
     <!--//手机上下篇-->
@@ -25,10 +25,9 @@
                 <p><span class="header">{{$novel->name}} [小说简介]:</span> {{$novel->description}}</p>
                 <p><a class="btn btn-primary" href="http://{{$host}}/book/z{{$novel->enname}}.html" target="_blank">
                         <span class="glyphicon glyphicon-book"></span> 免费在线阅读 </a>
-                    <script src="./《氪无不胜》氪无不胜[TXT小说下载] - 键盘小说网_files/down.js.下载"></script>
-                    <a style="margin-left:10px;" class="btn btn-primary" href="http://{{$host}}/css/history.html" target="_blank">
-                        <span class="glyphicon glyphicon-time"></span> 阅读记录
-                    </a>
+                    {{--<a style="margin-left:10px;" class="btn btn-primary" href="http://{{$host}}/css/history.html" target="_blank">--}}
+                        {{--<span class="glyphicon glyphicon-time"></span> 阅读记录--}}
+                    {{--</a>--}}
                 </p>
                 <!--分享-->
                 <p></p>
@@ -46,15 +45,12 @@
                 <div class="col-xs-go text-center">
                     <a class="btn btn-lg btn-default btn-block" href="javascript:" onclick="window.open(&#39;http://txt.janpn.com/to/txt/7/7349.txt&#39;,&#39;_self&#39;)" rel="nofollow"><span class="glyphicon glyphicon-save"></span> 小说下载 </a>
                 </div>
-
                 <div class="col-xs-go text-center">
-                    <a class="btn btn-lg btn-primary btn-block" href="http://{{$host}}/book/zuowubusheng.html" target="_blank">
+                    <a class="btn btn-lg btn-primary btn-block" href="http://{{$host}}/book/{{$novel->id}}/{{$chapter[0]->id}}.html" target="_blank">
                         <span class="glyphicon glyphicon-list-alt"></span> 极速阅读
                     </a>
                 </div>
-
                 <!--广告-->
-
                 <!--//广告-->
             </div>
         </div>
@@ -67,9 +63,8 @@
         <div class="row movie">
             <div class="col-md-12 info">
                 <p><span class="header str-over-dot">{{$novel->name}} [小说目录]1 更新时间：{{$novel->updated_at}}</span> </p>
-123123
                 @foreach($chapter as $item)
-                <li>第{{$item->chapter_number}}章 {{$item->name}}</li>
+                    <li><a href="http://www.{{$host}}/book/{{$novel->id}}/{{$item->id}}"> {{$item->name}}</a></li>
                 @endforeach
             </div>
         </div>
@@ -96,7 +91,6 @@
             </a>
         @endforeach
     </div>
-
     <!--评论-->
     <div class="clear"></div>
     <div class="copyright"></div>

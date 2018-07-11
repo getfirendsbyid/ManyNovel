@@ -36,9 +36,9 @@ class HomeController extends Controller
         if (empty($novel->toArray())){
             return view($this->yuming->templet_name.'.nonovel');
         }else{
-            $chapter = Chapter::find($novel->id);
+            $chapter = Chapter::where(['novelid'=>$novel->id])->get();
             $nav = Nav::find($novel->navid);
-            $othernovel = Novel::where(['nav'=>$novel->navid])->take(40)->get();
+            $othernovel = Novel::where(['navid'=>$novel->navid])->take(40)->get();
             return view($this->yuming->templet_name.'.sonlist')->with([
                 'tdk'=>$this->yuming,
                 'nav'=>$this->nav,
@@ -69,27 +69,41 @@ class HomeController extends Controller
         }else{
             $chapter = Chapter::where(['novelid'=>$novel->id])->get();
             $nav = Nav::find($novel->navid);
-            $othernovel = Novel::where(['nav'=>$novel->navid])->take(40)->get();
-            return view($this->yuming->templet_name.'.sonlist')->with([
+            $othernovel = Novel::where(['navid'=>$novel->navid])->take(40)->get();
+            $befor_novel = Novel::where('id','<',$novel->id)->orderBy('id','desc')->first();
+            $last_novel = Novel::where('id','>',$novel->id)->orderBy('id','asc')->first();
+
+            return view($this->yuming->templet_name.'.list')->with([
                 'tdk'=>$this->yuming,
                 'nav'=>$this->nav,
                 'chapter'=>$chapter,
                 'othernovel'=>$othernovel,
                 'host'=>$this->domain,
                 'novel'=>$novel,
+                'befor_novel'=>$befor_novel,
+                'last_novel'=>$last_novel,
                 'navname'=>$nav->name
             ]);
         }
     }
 
-    public function show(){
-        $host = $_SERVER['HTTP_HOST'];
-        $yuming =  Yuming::where(['host'=>$host])->first();
-        $nav = Nav::where(['host'=>$host])->get();
-        return view($yuming->templet_name.'.index',compact('yuming'));
+    public function show($bookid,$chapterid){
+        $chapter =  Chapter::find($chapterid);
+        $novel =  Novel::find($bookid);
+        $nav = Nav::find($novel->navid);
+        $befor_chapter = Chapter::where('id','<',$chapterid)->where(['novelid'=>$bookid])->orderBy('id','desc')->first();
+        $last_chapter = Chapter::where('id','>',$chapterid)->where(['novelid'=>$bookid])->orderBy('id','asc')->first();
+        return view($this->yuming->templet_name.'.show')->with([
+            'tdk'=>$this->yuming,
+            'nav'=>$this->nav,
+            'chapter'=>$chapter,
+            'host'=>$this->domain,
+            'novel'=>$novel,
+            'navname'=>$nav->name,
+            'befor_chapter'=>$befor_chapter,
+            'last_chapter'=>$last_chapter,
+        ]);
     }
-
-
 
     public function search(Request $request)
     {
@@ -98,6 +112,12 @@ class HomeController extends Controller
         return view($this->yuming->templet_name.'.search')->with(['data'=>$res]);
     }
 
+    public function sitemap()
+    {
+        $novel = Novel::where([])->orderBy('updated_at', 'desc')->get();
 
-
+        return response()->view($this->yuming->templet_name.'.sitemap', [
+            'data' => $novel,
+        ])->header('Content-Type', 'text/xml');
+    }
 }

@@ -8,10 +8,10 @@
 
     <!--手机上下篇-->
     <div class="row visible-xs-inline footer-bar">
-        <div class="col-xs-3 text-center"><a title="上一章" class="btn btn-default" href="http://sibiao.janpn.com/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+        <div class="col-xs-3 text-center"><a title="上一章" class="btn btn-default" href="http://{{$befor_novel->enname}}.{{$host}}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
         </div>
         <div class="col-xs-6 text-center"></div>
-        <div class="col-xs-3 text-center"><a title="下一章" class="btn btn-default" href="http://hexuchengshi.janpn.com/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+        <div class="col-xs-3 text-center"><a title="下一章" class="btn btn-default" href="http://{{$last_novel->enname}}.{{$host}}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
     </div>
     <!--//手机上下篇-->
@@ -26,7 +26,6 @@
                 <p><span class="header">{{$novel->name}} [小说简介]:</span> {{$novel->description}}</p>
                 <p><a class="btn btn-primary" href="http://www.{{$host}}/book/{{$novel->enname}}.html" target="_blank">
                         <span class="glyphicon glyphicon-book"></span> 免费在线阅读 </a>
-                    <script src="{{url('janpa/down.js')}}/"></script>
                 </p>
                 <!--分享-->
                 <p></p>

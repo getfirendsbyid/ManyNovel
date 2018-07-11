@@ -294,16 +294,7 @@ function backToTop() {
 }
 
 
-function bd_push() {
-	// var bp = document.createElement('script');
-	// bp.src = '';
-	// var s = document.getElementsByTagName("script")[0];
-	// s.parentNode.insertBefore(bp, s);
 
-	document.writeln("<div style=\'display:none;\'>");
-	document.writeln('<script src="https://s22.cnzz.com/z_stat.php?id=1273793447&web_id=1273793447" language="JavaScript"></script>');
-	document.writeln("</div>");
-}
 
 function zn() {}
 
