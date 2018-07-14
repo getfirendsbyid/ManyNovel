@@ -132,5 +132,14 @@
 <script src="{{url('janpa/pagebottom(1).js')}}"></script>
 <script src="{{url('janpa/yuedu.js')}}"></script>
 
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?02f25075600dac8d5be3fe12ae783ddb";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 
 </body></html>
