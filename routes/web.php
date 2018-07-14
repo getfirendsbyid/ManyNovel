@@ -20,6 +20,7 @@ $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->ge
 foreach ($dbyuming as $item){
     if ($host == $item->host){
         $yuming = $item->host;
+        return ;
     }
 }
 
