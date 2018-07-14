@@ -36,7 +36,7 @@ class HomeController extends Controller
         $novel =  Novel::where(['enname'=>$account])->first();
 
         if (empty($novel)){
-            return view($this->yuming->templet_name.'.404')->with(['nav'=>$this->nav,'host'=>$this->domain]);
+            return view($this->yuming->templet_name.'.nopage')->with(['nav'=>$this->nav,'host'=>$this->domain]);
         }else{
             $chapter = Chapter::where(['novelid'=>$novel->id])->get();
             $nav = Nav::find($novel->navid);
@@ -78,7 +78,6 @@ class HomeController extends Controller
             $othernovel = Novel::where(['navid'=>$novel->navid])->take(40)->get();
             $befor_novel = Novel::where('id','<',$novel->id)->orderBy('id','desc')->first();
             $last_novel = Novel::where('id','>',$novel->id)->orderBy('id','asc')->first();
-
             return view($this->yuming->templet_name.'.list')->with([
                 'tdk'=>$this->yuming,
                 'nav'=>$this->nav,
@@ -133,7 +132,7 @@ class HomeController extends Controller
 
     public function page404()
     {
-        return view($this->yuming->templet_name.'.404')->with(['nav'=>$this->nav,'host'=>$this->domain]);
+        return view($this->yuming->templet_name.'.nopage')->with(['nav'=>$this->nav,'host'=>$this->domain]);
     }
     
 }
