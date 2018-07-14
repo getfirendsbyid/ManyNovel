@@ -17,7 +17,6 @@ Route::get('tt',function (){
 
 
 Route::get('sitemap.xml','HomeController@sitemap');
-Route::get('/{id}','HomeController@page404');
 Route::get('home','NovelController@index');
 
 
@@ -35,6 +34,8 @@ Route::domain('{account}.zbtorch.cn')->group(function ($account) {
 
 Route::get('/book/{bookname}','HomeController@chapterlist');
 Route::get('/book/{bookid}/{chapterid}','HomeController@show');
+Route::get('/{id}','HomeController@page404');
+
 //Route::get('test','HomeController@test');
 
 Route::get('hentai','AdminController@login');
