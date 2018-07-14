@@ -41,7 +41,7 @@
                 <p><span class="header">{{$novel->name}} [最新章节]:</span> 第{{$novel->new_chapter_number}}章 {{$novel->new_chapter}} </p>
                 <p><span class="header">{{$novel->name}} [更新时间]:</span> {{$novel->updated_at}} </p>
                 <p><span class="header">{{$novel->name}} [小说简介]:</span> {{$novel->description}}</p>
-                <p><a class="btn btn-primary" href="http://{{$host}}/book/z{{$novel->enname}}.html" target="_blank">
+                <p><a class="btn btn-primary" href="http://{{$host}}/book/{{$novel->enname}}.html" target="_blank">
                         <span class="glyphicon glyphicon-book"></span> 免费在线阅读 </a>
                     {{--<a style="margin-left:10px;" class="btn btn-primary" href="http://{{$host}}/css/history.html" target="_blank">--}}
                         {{--<span class="glyphicon glyphicon-time"></span> 阅读记录--}}
