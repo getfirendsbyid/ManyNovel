@@ -21,15 +21,15 @@ Route::get('/{id}','HomeController@page404');
 Route::get('home','NovelController@index');
 
 
-Route::domain('www.app.cn')->group(function () {
+Route::domain('www.zbtorch.cn')->group(function () {
     Route::middleware('CountSpider')->get('/','HomeController@index');
 });
 
-Route::domain('zhannei.app.cn')->group(function () {
+Route::domain('zhannei.zbtorch.cn')->group(function () {
     Route::middleware('CountSpider')->get('/search','HomeController@search');
 });
 
-Route::domain('{account}.app.cn')->group(function ($account) {
+Route::domain('{account}.zbtorch.cn')->group(function ($account) {
     Route::middleware('CountSpider')->get('/','HomeController@fan');
 });
 
