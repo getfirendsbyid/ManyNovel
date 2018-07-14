@@ -448,7 +448,7 @@ h4 .glyphicon-envelope{font-weight:400;font-size:12px}
 /*--------------------广告-----------------*/
 @media screen and (min-width:1160px){
 .ad-1160px{ background:#FFFFFF;width:1160px;margin:10px auto;text-align:center;}
-.ad-1024px{ display:none;}
+.ad-1024px{ display:block;}
 .ad-728px{ display:none;}
 .ad-480px{ display:none;}
 .ad-index {display: inherit;text-align:center; margin:5px 0;}
@@ -456,7 +456,7 @@ h4 .glyphicon-envelope{font-weight:400;font-size:12px}
 .ad-index-480px { display:none;}
 }
 @media screen and (min-width:960px) and (max-width:1159px){
-.ad-1160px{ display:none;}
+.ad-1160px{ display:block;}
 .ad-1024px{ background:#FFFFFF;width:960px;margin:10px auto;text-align:center;}
 .ad-728px{ display:none;}
 .ad-480px{ display:none;}
@@ -465,8 +465,8 @@ h4 .glyphicon-envelope{font-weight:400;font-size:12px}
 .ad-index-480px { display:none;}
 }
 @media screen and (min-width:728px) and (max-width:959px){
-.ad-1160px{ display:none;}
-.ad-1024px{ display:none;}
+.ad-1160px{ display:block;}
+.ad-1024px{ display:block;}
 .ad-728px{ background:#FFFFFF;width:728px;margin:10px auto;text-align:center;}
 .ad-auto{ background:#FFFFFF;text-align:center;}
 .ad-480px{ display:none;}
@@ -481,7 +481,7 @@ h4 .glyphicon-envelope{font-weight:400;font-size:12px}
 .ad-1160px{ display:none;}
 .ad-1024px{ display:none;}
 .ad-728px{ display:none;}
-.ad-480px{ background:#FFFFFF;margin:10px 0 10px;}
+.ad-480px{ margin:10px 0 10px;}
 .ad-auto{ display:none;}
 .ad-index {display:none;}
 .ad-index-480px {display: inherit;text-align:center;margin-top:5px;}

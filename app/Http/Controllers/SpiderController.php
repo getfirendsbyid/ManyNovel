@@ -2,18 +2,20 @@
 namespace App\Http\Controllers;
 
 use App\Chapter;
+use App\Content;
 use App\Host;
 use App\Nav;
 use App\Novel;
 use App\SpiderNav;
+use DemeterChain\C;
 use GuzzleHttp\Client;
 use App\Xiaoshuo;
 use App\Yuming;
 use GuzzleHttp\Pool;
+use Illuminate\Contracts\Queue\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
-use Josh\Component\PhantomJs\Facade\PhantomJs;
 use Overtrue\Pinyin\Pinyin;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -22,7 +24,7 @@ class SpiderController extends Controller
 
     private $totalPageCount;
     private $counter        = 1;
-    private $concurrency    = 100;  // 同时并发抓取
+    private $concurrency    = 150;  // 同时并发抓取
     private $xiaoshuo = [];
     private $bookurl = [];
 
@@ -191,7 +193,7 @@ class SpiderController extends Controller
     public function chapterlist()
     {
         ini_set('max_execution_time', '0');
-        ini_set('memory_limit','1024M');
+        ini_set('memory_limit','2024M');
         $this->novel = Novel::all()->toArray();
         $this->totalPageCount = count($this->novel);
         $client = new Client();
@@ -257,12 +259,14 @@ class SpiderController extends Controller
     public function chaptercontent()
     {
         ini_set('max_execution_time', '0');
-        ini_set('memory_limit','1024M');
-        $this->novel = Chapter::all()->toArray();
+        ini_set('memory_limit','2024M');
+
+        $this->novel = Chapter::where('id','>=',150000)->select('chapter_url','id')->get();
+        echo '30万条数据已经获取成功';
         $this->totalPageCount = count($this->novel);
         $client = new Client();
         $requests = function ($total) use ($client) {
-            foreach ($this->novel as $key => $uri) {
+            foreach ($this->novel as $uri) {
                 yield function() use ($client, $uri) {
                     return $client->getAsync($uri['chapter_url']);
                 };
@@ -273,26 +277,18 @@ class SpiderController extends Controller
             'concurrency' => $this->concurrency,
             'fulfilled'   => function ($response, $index){
                 $chapterdata =   mb_convert_encoding($response->getBody()->getContents(), 'utf-8', 'GBK,UTF-8,ASCII');
-//                echo "请求第 $index 个请求，小说" . $this->novel[$index]['novel_url'] . "的章节正在爬取";
-                echo "请求第 $index 个请求，小说" . $this->novel[$index]['chapter_url'] . "的章节正在爬取";
-                echo '<br>';
+                echo "请求第 $index 个请求，小说....id" .$this->novel[$index]->id;;
                 $crawler = new Crawler();
                 $crawler->addHtmlContent($chapterdata);
                 $chapterdata =[];
                 //补充小说描述 封面 作者 热点 连载状态
-
-                $chapterdata['chapter_content'] = $crawler->filterXPath('//*[@id="htmlContent"]')->text();
-                $chapter =  Chapter::find($this->novel[$index]['id']);
-                $chapter->chapter_content = $chapterdata['chapter_content'];
-                $bool = $chapter->save();
-                if ($bool){
-                    echo $this->novel[$index]['name'].'章节抓取完成插入';
-                    echo '<br>';
-                    $list = null; //设置为null 销毁内存
-                }
+                $content['created_at'] = date('Y-m-d H:i:s');
+                $content['updated_at'] = date('Y-m-d H:i:s');
+                $content['chapterid'] = $this->novel[$index]->id;
+                $content['content'] = self::filterEmoji($crawler->filterXPath('//*[@id="htmlContent"]')->text());
                 ob_flush();
                 flush();
-                $this->countedAndCheckEnded();
+                $this->countedAndCheckEnded($content);
             },
             'rejected' => function ($reason, $index){
 //                    log('test',"rejected" );
@@ -300,24 +296,50 @@ class SpiderController extends Controller
                 $this->countedAndCheckEnded();
             },
         ]);
+
         $promise = $pool->promise();
         $promise->wait();
+
+
     }
 
 
-    public function countedAndCheckEnded()
+    public function countedAndCheckEnded($data='')
     {
         if ($this->counter < $this->totalPageCount){
             $this->counter++;
+            $this->con[$this->counter-2] =$data;
             return;
         }
-       echo("请求结束！");
+        $a =  array_chunk(array_filter($this->con),1000);
+
+        for ($i=0;$i<count($a);$i++){
+            $bool = Content::insert($a[$i]);
+            if ($bool){
+                echo '第'.$i.'插入成功';
+                echo '<br>';
+                ob_flush();
+                flush();
+            }
+        }
+
+        echo("请求结束！");
     }
 
-    public function deletechapter()
+
+
+    function filterEmoji($str)
     {
-        $a =  Chapter::truncate();
-        dd($a);
+        $str = preg_replace_callback(
+            '/./u',
+            function (array $match) {
+                return strlen($match[0]) >= 4 ? '' : $match[0];
+            },
+            $str);
+
+        return $str;
     }
+
+
 
 }

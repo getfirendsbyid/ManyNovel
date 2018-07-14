@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Chapter;
+use App\Content;
 use App\Nav;
 use App\Novel;
 use App\Yuming;
@@ -17,7 +18,7 @@ class HomeController extends Controller
         $this->domain =  str_after($this->host,'.');
         $this->yuming =  Yuming::where(['host'=>$this->domain])->first();
         if (empty($this->yuming)){
-            dd('该域名没有在后台添加');
+           return view('404');
         }
         $this->nav = Nav::where(['hostid'=>$this->yuming->id])->get();
     }
@@ -33,8 +34,9 @@ class HomeController extends Controller
     public function fan($account)
     {
         $novel =  Novel::where(['enname'=>$account])->first();
-        if (empty($novel->toArray())){
-            return view($this->yuming->templet_name.'.nonovel');
+
+        if (empty($novel)){
+            return view($this->yuming->templet_name.'.404')->with(['nav'=>$this->nav,'host'=>$this->domain]);
         }else{
             $chapter = Chapter::where(['novelid'=>$novel->id])->get();
             $nav = Nav::find($novel->navid);
@@ -93,7 +95,10 @@ class HomeController extends Controller
 
     public function show($bookid,$chapterid){
         $chapterid = str_before($chapterid,'.html');
-        $chapter =  Chapter::find($chapterid);
+        $chapter =  \DB::table('content')
+            ->where(['chapterid'=>$chapterid])
+            ->join('chapter','chapter.id','=','content.chapterid')
+            ->first();
         $novel =  Novel::find($bookid);
         $nav = Nav::find($novel->navid);
         $befor_chapter = Chapter::where('id','<',$chapterid)->where(['novelid'=>$bookid])->orderBy('id','desc')->first();
@@ -125,4 +130,10 @@ class HomeController extends Controller
             'data' => $novel,
         ])->header('Content-Type', 'text/xml');
     }
+
+    public function page404()
+    {
+        return view($this->yuming->templet_name.'.404')->with(['nav'=>$this->nav,'host'=>$this->domain]);
+    }
+    
 }

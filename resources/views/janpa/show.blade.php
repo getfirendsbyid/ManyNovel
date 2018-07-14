@@ -1,110 +1,136 @@
-@extends('janpa.layouts.app')
-@section('title', $chapter->chapter_number.' '.$chapter->name.'[极速阅读].by '.$novel->author.' - 鼠标小说网')
-@section('keywords',$novel->keywords)
-@section('description',$novel->description)
+<!DOCTYPE html>
+<!-- saved from url=(0050)http://www.janpn.com/book/177/177138/36401873.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-@section('content')
-    <div class="container body-content read-container">
-        <ol class="breadcrumb">
-            <li><a href="http:/www.{{$host}}"><i class="fa fa-home fa-fw"></i>鼠标小说网</a></li>
-            <li><a href="http://{{$novel->enname}}.janpn.com/">{{$novel->name}}</a></li>
-            <span class="pagetop">
-        <script src="{{url('janpa/pagetop.js')}}"></script>
-        <select name="bcolor" id="bcolor" onchange="javascript:saveSet(),document.getElementById(&#39;content&#39;).style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById(&#39;h1&#39;).style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById(&#39;yueduye&#39;).style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById(&#39;readerListADbox&#39;).style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById(&#39;readerFooterNav&#39;).style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById(&#39;readerListADboxs&#39;).style.backgroundColor=this.options[this.selectedIndex].value;document.getElementById(&#39;readerFooterPage&#39;).style.backgroundColor=this.options[this.selectedIndex].value;">
-            <option style="background-color: #E9FAFF" value="#E9FAFF">底色</option>
-            <option style="background-color: #E9FAFF" value="#E9FAFF">默认</option>
-            <option style="background-color: #ffffff" value="#ffffff">白色</option>
-            <option style="background-color: #e3e8f7" value="#e3e8f7">淡蓝</option>
-            <option style="background-color: #daebfc" value="#daebfc">蓝色</option>
-            <option style="background-color: #ebeaea" value="#ebeaea">淡灰</option>
-            <option style="background-color: #e7e3e6" value="#e7e3e6">灰色</option>
-            <option style="background-color: #dedcd8" value="#dedcd8">深灰</option>
-            <option style="background-color: #d8d7d7" value="#d8d7d7">暗灰</option>
-            <option style="background-color: #e6fae4" value="#e6fae4">绿色</option>
-            <option style="background-color: #f9fbdd" value="#f9fbdd">明黄</option>
-        </select>
-                <select name="txtcolor" id="txtcolor" onchange="javascript:saveSet(),document.getElementById(&#39;htmlContent&#39;).style.color=this.options[this.selectedIndex].value;">
-                    <option value="">字色</option>
-                    <option value="#000000">黑色</option>
-                    <option value="#ff0000">红色</option>
-                    <option value="#006600">绿色</option>
-                    <option value="#0000ff">蓝色</option>
-                    <option value="#660000">棕色</option>
-                </select>
-                <select name="fonttype" id="fonttype" onchange="javascript:saveSet(),document.getElementById(&#39;htmlContent&#39;).style.fontSize=this.options[this.selectedIndex].value;">
-                    <option value="24px">字号</option>
-                    <option value="12px">小号</option>
-                    <option value="14px">较小</option>
-                    <option value="16px">中号</option>
-                    <option value="18px">较大</option>
-                    <option value="24px">大号</option>
-                </select>
-                <select name="scrollspeed" id="scrollspeed" onchange="javascript:saveSet(),setSpeed(this.value)">
-                    <option value="5">滚屏</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-        </span>
-        </ol>
-        <div class="panel panel-default panel-readcontent" id="content" style="background-color: rgb(233, 250, 255);">
-            <div class="page-header text-center">
-                <h1 class="readTitle"> {{$chapter->name}} </h1>
+    <title>《{{$novel->name}}》{{$chapter->name}} [极速阅读].by {{$novel->author}}  - 鼠标小说网'</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <link rel="shortcut icon" href="http://www.janpn.com/favicon.ico">
+    <link href="{{url('janpa/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url('janpa/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{url('janpa/site.css')}}" rel="stylesheet">
+    <script src="{{url('janpa/jquery.min.js')}}"></script>
+    <script src="{{url('janpa/bootstrap.min.js')}}"></script>
+    <!--[if lt IE 9]><script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.js"></script><![endif]-->
+    <script src="{{url('janpa/dialog.js')}}"></script>
+    <script src="{{url('janpa/book.js')}}"></script>
+    <script src="{{url('janpa/profit.js')}}"></script>
+</head>
+<body>
+
+<div class="navbar navbar-inverse" id="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://www.janpn.com/" class="navbar-brand logo" title="键盘小说网">鼠标小说网</a></div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" id="nav-header">
+            <div class="nav search">
+                <form target="_blank" name="formsearch" action="http://zhannei.zbtorch.cn">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="请输入小说名称.." id="bdcsMain" name="q">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <i class="fa fa-search fa-fw"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
             </div>
-            <!--广告-->
-            <!--//广告-->
-            <p class="text-center readPager">
-                @if(empty($befor_chapter))
-                <a class="btn btn-default" href="/"><i class="fa fa-arrow-circle-left fa-fw"></i>没有啦</a>
-                @else
-                    <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$befor_chapter->id}}.html"><i class="fa fa-arrow-circle-left fa-fw"></i>上一章</a>
-                    @endif
-                <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->enname}}.html"><i class="fa fa-list fa-fw"></i>章节目录</a>
-
-                 @if(empty($last_chapter))
-                <a class="btn btn-default" href="/">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
-                 @else
-                 <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$last_chapter->id}}.html">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
-                @endif
-            </p>
-            <p class="text-center readPager">
-                <a class="btn btn-default" href="http://www.{{$host}}"><i class="fa fa-home fa-fw"></i>返回首页</a>
-                {{--<a class="btn btn-primary" href="http://www.{{$host}}/css/history.html"><i class="fa fa-history fa-fw"></i>阅读记录</a>--}}
-            </p>
-            <!--广告-->
-            <!--//广告-->
-            <div class="panel-body" id="htmlContent" style="font-size: 24px;">
-                    {!! $chapter->chapter_content!!}
-            </div>
-            <!--广告-->
-            <!--//广告-->
-            <p class="text-center readPager">
-                @if(empty($befor_chapter))
-                    <a class="btn btn-default" href="/"><i class="fa fa-arrow-circle-left fa-fw"></i>没有啦</a>
-                @else
-                    <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$befor_chapter->id}}.html"><i class="fa fa-arrow-circle-left fa-fw"></i>上一章</a>
-                @endif
-                <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->enname}}.html"><i class="fa fa-list fa-fw"></i>章节目录</a>
-
-                @if(empty($last_chapter))
-                    <a class="btn btn-default" href="/">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
-                @else
-                    <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$last_chapter->id}}.html">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
-                @endif
-            </p>
-            <p class="text-center readPager">
-                <a class="btn btn-default" href="http://www.{{$host}}"><i class="fa fa-home fa-fw"></i>返回首页</a>
-                {{--<a class="btn btn-primary" href="http://www.{{$host}}/css/history.html"><i class="fa fa-history fa-fw"></i>阅读记录</a>--}}
-            </p>
-            <!--广告-->
-            <!--//广告-->
-        </div>
+            <div class="clear"></div>
+            <ul class="nav navbar-nav">
+                @foreach($nav as $item)
+                    <li><a href="http://www.{{$host}}/{{$item->enname}}/">{{$item->name}}</a></li>
+                @endforeach
+            </ul>
+        </nav>
     </div>
-    @endsection
+</div>
+
+
+
+<div class="container body-content read-container">
+    <ol class="breadcrumb">
+        <li><a href="http://www.{{$host}}/"><i class="fa fa-home fa-fw"></i>鼠标小说网</a></li>
+        <li><a href="http://{{$novel->enname}}.{{$host}}">{{$novel->name}}</a></li>
+        <span class="pagetop">
+        <script src="{{url('janpa/pagetop.js')}}"></script>
+        </span>
+    </ol>
+    <div class="panel panel-default panel-readcontent" id="content" style="background-color: rgb(249, 251, 221);">
+        <div class="page-header text-center">
+            <h1 class="readTitle"> {{$chapter->name}}</h1>
+        </div>
+        <!--广告-->
+        <!--//广告-->
+        <p class="text-center readPager">
+            @if(empty($befor_chapter))
+                <a class="btn btn-default" href="/"><i class="fa fa-arrow-circle-left fa-fw"></i>没有啦</a>
+            @else
+                <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$befor_chapter->id}}.html"><i class="fa fa-arrow-circle-left fa-fw"></i>上一章</a>
+            @endif
+            <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->enname}}.html"><i class="fa fa-list fa-fw"></i>章节目录</a>
+
+            @if(empty($last_chapter))
+                <a class="btn btn-default" href="/">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
+            @else
+                <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$last_chapter->id}}.html">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
+            @endif
+        </p>
+        <p class="text-center readPager">
+            <a class="btn btn-default" href="http://www.janpn.com/index"><i class="fa fa-home fa-fw"></i>返回首页</a>
+        </p>
+        <!--广告-->
+        <!--//广告-->
+        <div class="panel-body" id="htmlContent" style="font-size: 14px; color: rgb(102, 0, 0);">
+                {!! $chapter->content !!}
+        </div>
+        <!--广告-->
+        <!--//广告-->
+        <p class="text-center readPager">
+            @if(empty($befor_chapter))
+                <a class="btn btn-default" href="/"><i class="fa fa-arrow-circle-left fa-fw"></i>没有啦</a>
+            @else
+                <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$befor_chapter->id}}.html"><i class="fa fa-arrow-circle-left fa-fw"></i>上一章</a>
+            @endif
+            <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->enname}}.html"><i class="fa fa-list fa-fw"></i>章节目录</a>
+
+            @if(empty($last_chapter))
+                <a class="btn btn-default" href="/">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
+            @else
+                <a class="btn btn-default" href="http://www.{{$host}}/book/{{$novel->id}}/{{$last_chapter->id}}.html">下一章<i class="fa fa-arrow-circle-right fa-fw"></i></a>
+            @endif
+        </p>
+        <p class="text-center readPager">
+            <a class="btn btn-default" href="http://www.{{$host}}"><i class="fa fa-home fa-fw"></i>返回首页</a>
+        </p>
+        <!--广告-->
+        <!--//广告-->
+    </div>
+</div>
+
+
+<p class="fs-12 text-muted text-center hidden-xs">温馨提示：关闭浏览器时，请加入浏览器书签方便您下次继续阅读。</p>
+<div class="back-to-top" title="返回顶部">
+    <a href="http://www.{{$host}}/book/{{$novel->id}}/{{$chapter->id}}.html#"><i class="fa fa-chevron-up"></i></a>
+</div>
+<footer>
+    <p>
+        <a href="http://www.{{$host}}" target="_blank">广告服务</a> |
+        <a href="http://www.{{$host}}" target="_blank">版权声明</a> |
+        <a href="http://www.{{$host}}" target="_blank">联系我们</a> |
+        | 冀ICP备12007938号-2
+    </p>
+    <p>Copyright © 2018-2020 www.{{$host}} 小说小说网 版权所有.</p>
+</footer>
+<script src="{{url('janpa/pagebottom(1).js')}}"></script>
+<script src="{{url('janpa/yuedu.js')}}"></script>
+
+
+</body></html>
