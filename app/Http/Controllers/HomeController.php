@@ -63,7 +63,7 @@ class HomeController extends Controller
         $where = ['hostid'=>$this->yuming->id,'enname'=>$navname];
         $nav = Nav::where($where)->first();
         if (empty($nav)){
-            return view($this->yuming->templet_name.'.opage')->with(['nav'=>$this->nav,'host'=>$this->domain]);
+            return view($this->yuming->templet_name.'.nopage')->with(['nav'=>$this->nav,'host'=>$this->domain]);
         }
         $novel =Novel::where(['navid'=>$nav->id])->paginate(80);
         return view($this->yuming->templet_name.'.nav')->with(['tdk'=>$this->yuming,'nav'=>$this->nav,'host'=>$this->domain,'novel'=>$novel,'navname'=>$nav->name]);
