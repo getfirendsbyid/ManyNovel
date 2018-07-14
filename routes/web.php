@@ -15,28 +15,29 @@ Route::get('tt',function (){
     \App\Content::truncate();
 });
 
-$host = str_after($_SERVER['HTTP_HOST'],'.');
-$dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
-foreach ($dbyuming as $item){
-    if ($host == $item->host){
-        $yuming = $item->host;
-        return ;
+function checkhost(){
+    $host = str_after($_SERVER['HTTP_HOST'],'.');
+    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
+    foreach ($dbyuming as $item){
+        if ($host == $item->host){
+            return $yuming = $item->host;
+        }
     }
 }
+
 
 Route::get('sitemap.xml','HomeController@sitemap');
 Route::get('home','NovelController@index');
 
-
-Route::domain('www.'.$yuming)->group(function () {
+Route::domain('www.'.checkhost())->group(function () {
     Route::middleware('CountSpider')->get('/','HomeController@index');
 });
 
-Route::domain('zhannei.'.$yuming)->group(function () {
+Route::domain('zhannei.'.checkhost())->group(function () {
     Route::middleware('CountSpider')->get('/search','HomeController@search');
 });
 
-Route::domain('{account}.'.$yuming)->group(function ($account) {
+Route::domain('{account}.'.checkhost())->group(function ($account) {
     Route::middleware('CountSpider')->get('/','HomeController@fan');
 });
 
