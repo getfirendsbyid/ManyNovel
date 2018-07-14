@@ -121,7 +121,7 @@ class HomeController extends Controller
     {
         $data = $request->input('data');
         $res =   Novel::where('name','like','%'.$data.'%')->get();
-        return view($this->yuming->templet_name.'.search')->with(['data'=>$res]);
+        return view($this->yuming->templet_name.'.search')->with(['novel'=>$res,'nav'=>$this->nav,'host'=>$this->domain]);
     }
 
     public function sitemap()

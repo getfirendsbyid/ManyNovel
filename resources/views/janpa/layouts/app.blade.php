@@ -110,7 +110,7 @@
         <div class="col-xs-12 text-center ptb20">
             <div class="input-group col-xs-offset-2 col-xs-7">
                 <form target="_blank" name="formsearch" action="http://zhannei.{{$host}}/search">
-                    <input name="q" type="text" class="form-control" id="search-keyword" placeholder="请输入小说名称..">
+                    <input name="data" type="text" class="form-control" id="search-keyword" placeholder="请输入小说名称..">
                     <span class="input-group-btn btn-foot">
                         <button class="btn btn-default" type="submit">搜索</button>
                     </span>

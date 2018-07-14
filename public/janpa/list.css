@@ -447,32 +447,32 @@ h4 .glyphicon-envelope{font-weight:400;font-size:12px}
 
 /*--------------------广告-----------------*/
 @media screen and (min-width:1160px){
-.ad-1160px{ background:#FFFFFF;width:1160px;margin:10px auto;text-align:center;}
+.ad-1160px{ width:1160px;margin:10px auto;text-align:center;}
 .ad-1024px{ display:block;}
-.ad-728px{ display:none;}
+.ad-728px{ display:block;}
 .ad-480px{ display:none;}
 .ad-index {display: inherit;text-align:center; margin:5px 0;}
 .ad-index img {width:1160px;}
-.ad-index-480px { display:none;}
+.ad-index-480px { display:block;}
 }
 @media screen and (min-width:960px) and (max-width:1159px){
 .ad-1160px{ display:block;}
 .ad-1024px{ background:#FFFFFF;width:960px;margin:10px auto;text-align:center;}
-.ad-728px{ display:none;}
-.ad-480px{ display:none;}
+.ad-728px{ display:block;}
+.ad-480px{ display:block;}
 .ad-index {display: inherit;text-align:center;margin:5px 0;}
 .ad-index img {width:960px;}
-.ad-index-480px { display:none;}
+.ad-index-480px { display:block;}
 }
 @media screen and (min-width:728px) and (max-width:959px){
 .ad-1160px{ display:block;}
 .ad-1024px{ display:block;}
 .ad-728px{ background:#FFFFFF;width:728px;margin:10px auto;text-align:center;}
 .ad-auto{ background:#FFFFFF;text-align:center;}
-.ad-480px{ display:none;}
+.ad-480px{ display:block;}
 .ad-index {display: inherit;text-align:center;margin:5px 0;}
 .ad-index img {width:728px;}
-.ad-index-480px { display:none;}
+.ad-index-480px { display:block;}
 .info .zhuying{overflow:hidden;height:100%;}
 .info p img { margin-top:15px;}
 }
