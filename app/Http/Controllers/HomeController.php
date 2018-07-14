@@ -18,7 +18,7 @@ class HomeController extends Controller
         $this->domain =  str_after($this->host,'.');
         $this->yuming =  Yuming::where(['host'=>$this->domain])->first();
         if (empty($this->yuming)){
-           return view('404');
+          dd('该域名还没有绑定');
         }
         $this->nav = Nav::where(['hostid'=>$this->yuming->id])->get();
     }
