@@ -34,7 +34,6 @@ Route::domain('{account}.zbtorch.cn')->group(function ($account) {
 
 Route::get('/book/{bookname}','HomeController@chapterlist');
 Route::get('/book/{bookid}/{chapterid}','HomeController@show');
-Route::get('/{id}','HomeController@page404');
 
 //Route::get('test','HomeController@test');
 
