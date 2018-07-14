@@ -130,7 +130,7 @@
 <script src="{{url('janpa/nav.overlay.js')}}"></script>
 <!--//手机底部菜单 -->
 
-{{ $tdk->baidu_js }}
+{!! $tdk->baidu_js !!}
 
 </body>
 </html>
