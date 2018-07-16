@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('tt',function (){
-    \App\Content::truncate();
-});
+Route::get('web','HomeController@web');
+
+
 
 function checkhost(){
     $host = str_after($_SERVER['HTTP_HOST'],'.');
@@ -29,7 +29,7 @@ Route::get('sitemap.xml','HomeController@sitemap'); //网站sitemap
 Route::get('home','NovelController@index'); //队列工具
 
 Route::domain('www.'.checkhost())->group(function () {
-    Route::middleware('CountSpider')->get('/','HomeController@index');  //
+    Route::middleware('CountSpider')->get('/','HomeController@index');
 });
 
 Route::domain('zhannei.'.checkhost())->group(function () {

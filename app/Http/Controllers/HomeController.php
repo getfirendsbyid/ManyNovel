@@ -20,7 +20,7 @@ class HomeController extends Controller
         if (empty($this->yuming)){
           dd('该域名还没有绑定');
         }
-        $this->nav = Nav::where(['hostid'=>$this->yuming->id])->get();
+        $this->nav = Nav::all();
     }
 
     public function index()
@@ -137,5 +137,5 @@ class HomeController extends Controller
     {
         return view($this->yuming->templet_name.'.nopage')->with(['nav'=>$this->nav,'host'=>$this->domain]);
     }
-    
+
 }
