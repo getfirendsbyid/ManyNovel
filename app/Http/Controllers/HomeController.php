@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         foreach ($this->nav as $key=>$item){
-            $this->nav[$key]['novel'] = Novel::where(['navid'=>$item->id])->take(20)->orderby('created_at','desc')->get();
+            $this->nav[$key]['novel'] = Novel::where(['navid'=>$item->id]) ->orderBy(\DB::raw('RAND()'))->take(20)->orderby('created_at','desc')->get();
         }
         return view($this->yuming->templet_name.'.index')->with(['tdk'=>$this->yuming,'nav'=>$this->nav,'host'=>$this->domain]);
     }
