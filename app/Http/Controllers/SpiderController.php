@@ -24,7 +24,7 @@ class SpiderController extends Controller
 
     private $totalPageCount;
     private $counter        = 1;
-    private $concurrency    = 150;  // 同时并发抓取
+    private $concurrency    = 70;  // 同时并发抓取
     private $xiaoshuo = [];
     private $bookurl = [];
 
@@ -141,7 +141,7 @@ class SpiderController extends Controller
     {
         ini_set('max_execution_time', '0');
         ini_set('memory_limit','1024M');
-        $this->novel = Novel::where(['hostid'=>$this->hostid])->get()->toArray();
+        $this->novel = Novel::all()->toArray();
         $this->totalPageCount = count($this->novel);
         $client = new Client();
         $requests = function ($total) use ($client) {
@@ -163,9 +163,7 @@ class SpiderController extends Controller
                 $chapter =[];
                 //补充小说描述 封面 作者 热点 连载状态
 //                dd($chapterdata);
-                $novel['description'] = str_before(str_after($chapterdata,$this->novel[$index]['name'].' [小说简介]:</span>'),' </p>');
-                $novel['novel_url'] = str_before(str_after($chapterdata,"btn-primary btn-block\' href="),' target=_blank>');
-
+                $novel['keywords'] = str_before(str_after($chapterdata,'ds" content="'),'" />');
                 $novelbool =  Novel::where(['id'=>$this->novel[$index]['id']])->update($novel);
 
                 if ($novelbool){

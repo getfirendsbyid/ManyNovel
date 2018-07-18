@@ -1,7 +1,7 @@
 @extends('janpa.layouts.app')
 
 @section('title','《'.$novel->name.'》'.$novel->name.'[TXT小说下载] - 鼠标小说网')
-@section('keywords', implode(',',explode("\r\n",chunk_split(str_replace(array("\r\n", "\r", "\n" ,"\t"), "", $chapter[0]->name),6))).','.implode(',',explode("\r\n",chunk_split(str_replace(array("\r\n", "\r", "\n" ,"\t"), "", $chapter[1]->name),6))))
+@section('keywords', $novel->keywords)
 @section('description',$novel->description)
 
 @section('content')
