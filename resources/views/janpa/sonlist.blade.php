@@ -1,8 +1,8 @@
 @extends('janpa.layouts.app')
 
-@section('title','《'.$novel->name.'》'.$novel->name.'[TXT小说下载] - 鼠标小说网')
-@section('keywords', $novel->keywords)
-@section('description',$novel->description)
+@section('title',$tdk->title.'《'.$novel->name.'》'.$novel->name.'[TXT小说下载] - '.$tdk->title)
+@section('keywords', $tdk->title.$novel->keywords)
+@section('description',$tdk->title.$novel->description)
 
 @section('content')
 

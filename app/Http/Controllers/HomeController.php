@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         foreach ($this->nav as $key=>$item){
-            $this->nav[$key]['novel'] = Novel::where(['navid'=>$item->id]) ->orderBy(\DB::raw('RAND()'))->take(20)->orderby('created_at','desc')->get();
+            $this->nav[$key]['novel'] = Novel::where(['navid'=>$item->id])->orderBy(\DB::raw('RAND()'))->take(20)->orderby('created_at','desc')->get();
         }
         return view($this->yuming->templet_name.'.index')->with(['tdk'=>$this->yuming,'nav'=>$this->nav,'host'=>$this->domain]);
     }
@@ -40,7 +40,7 @@ class HomeController extends Controller
         }else{
             $chapter = Chapter::where(['novelid'=>$novel->id])->get();
             $nav = Nav::find($novel->navid);
-            $othernovel = Novel::where(['navid'=>$novel->navid])->take(40)->get();
+            $othernovel = Novel::where(['navid'=>$novel->navid])->orderBy(\DB::raw('RAND()'))->take(40)->get();
             $befor_novel = Novel::where('id','<',$novel->id)->orderBy('id','desc')->first();
             $last_novel = Novel::where('id','>',$novel->id)->orderBy('id','asc')->first();
             return view($this->yuming->templet_name.'.sonlist')->with([
@@ -136,6 +136,22 @@ class HomeController extends Controller
     public function page404()
     {
         return view($this->yuming->templet_name.'.nopage')->with(['nav'=>$this->nav,'host'=>$this->domain]);
+    }
+
+    public function tt()
+    {
+        $yuming =  Yuming::all();
+        foreach ($yuming as $item){
+            $item->keywords = '下载小说,免费全本小说下载,txt全本下载,好看的小说,txt小说下载';
+            $item->description = '（163novel.cn）收录最新好看的小说，提供海量最新txt小说下载、txt全本下载、免费全本小说下载，是一个最新最全的下载小说网站。';
+            $item->webname = ' - 下载小说,免费全本小说下载,txt全本下载,好看的小说,txt小说下载';
+            $item->description = ' - 下载小说,免费全本小说下载,txt全本下载,好看的小说,txt小说下载';
+            $a =$item->save();
+            if ($a){
+                echo '成功:'.$item->id;
+                echo '<br>';
+            }
+        }
     }
 
 }

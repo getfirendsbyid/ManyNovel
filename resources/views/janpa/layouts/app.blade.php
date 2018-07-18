@@ -98,7 +98,7 @@
             <a href="javascript:" onclick="window.open(&#39;http://www.janpn.com/templets/call.html&#39;)" rel="nofollow">联系我们</a> |
             <a>站长统计使用位置</a>
             <br>
-            Copyright © 2018-2020 www.{{$host}} 鼠标小说网 版权所有</p>
+            Copyright © 2018-2020 www.{{$host}} {{$tdk->title}} 版权所有</p>
     </div>
 </footer>
 <div class="visible-xs-block footer-bar-placeholder"></div>

@@ -22,6 +22,8 @@ function checkhost(){
 //    }
 }
 
+//Route::get('tt','HomeController@tt'); //队列工具
+
  function deletespace($url)
 {
     return  str_replace(array("\r\n", "\r", "\n" ,"\t"), "", $url);

@@ -2,7 +2,7 @@
 <!-- saved from url=(0050)http://www.janpn.com/book/177/177138/36401873.html -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>《{{$novel->name}}》{{$chapter->name}} [极速阅读].by {{$novel->author}}  - 鼠标小说网'</title>
+    <title>{{$tdk->title}}《{{$novel->name}}》{{$chapter->name}} [极速阅读].by {{$novel->author}}  - {{$tdk->title}}'</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

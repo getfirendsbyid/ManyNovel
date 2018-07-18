@@ -1,19 +1,15 @@
 @extends('janpa.layouts.app')
 
-
-@section('title',$tdk->webname)
-@section('description',$tdk->description)
-@section('keywords',$tdk->keywords)
+@section('title',$tdk->title.$tdk->webname)
+@section('description',$tdk->title.$tdk->description)
+@section('keywords',$tdk->title.$tdk->keywords)
 
 @section('content')
-
-
     @foreach($nav as $key=>$item)
         <!--目录-->
         <div class="clear"></div>
         <div class="copyright_list"></div>
         <div class="titleh_list">{{$item->name}}</div>
-
         <div class="list">
             @foreach($item->novel as $key1=>$novel)
                 <a title="{{$novel->name}}" class="shop" href="http://{{$novel->enname}}.{{$host}}/">
@@ -31,5 +27,4 @@
         </div>
         <!--//目录--><!--目录-->
     @endforeach
-
 @endsection
