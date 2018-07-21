@@ -127,9 +127,9 @@ class HomeController extends Controller
     public function sitemap()
     {
         $novel = Novel::where([])->orderBy('updated_at', 'desc')->get();
-
         return response()->view($this->yuming->templet_name.'.sitemap', [
             'data' => $novel,
+            'host' => $this->yuming
         ])->header('Content-Type', 'text/xml');
     }
 
@@ -142,15 +142,8 @@ class HomeController extends Controller
     {
         $yuming =  Yuming::all();
         foreach ($yuming as $item){
-            $item->keywords = '下载小说,免费全本小说下载,txt全本下载,好看的小说,txt小说下载';
-            $item->description = '（163novel.cn）收录最新好看的小说，提供海量最新txt小说下载、txt全本下载、免费全本小说下载，是一个最新最全的下载小说网站。';
-            $item->webname = ' - 下载小说,免费全本小说下载,txt全本下载,好看的小说,txt小说下载';
-            $item->description = ' - 下载小说,免费全本小说下载,txt全本下载,好看的小说,txt小说下载';
-            $a =$item->save();
-            if ($a){
-                echo '成功:'.$item->id;
-                echo '<br>';
-            }
+           echo $item->host;
+            echo '<br>';
         }
     }
 

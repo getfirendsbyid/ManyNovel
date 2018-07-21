@@ -22,7 +22,13 @@ function checkhost(){
 //    }
 }
 
-//Route::get('tt','HomeController@tt'); //队列工具
+Route::get('tt11',function (){
+    $yuming =  \App\Yuming::all();
+    foreach ($yuming as $item){
+        echo $item->host;
+        echo '<br>';
+    }
+}); //队列工具
 
  function deletespace($url)
 {

@@ -1,7 +1,7 @@
 <urlset>
     @foreach($data as $item)
     <url>
-        <loc>http://{{$item->enname}}.zbtorch.cn</loc>
+        <loc>http://{{$item->enname}}.{{$host}}</loc>
         <lastmod>{{date('Y-m-d')}}</lastmod>
         <changefreq>always</changefreq>
         <priority>1.0</priority>
@@ -9,7 +9,7 @@
     @endforeach
     @foreach($data as $item)
     <url>
-        <loc>http://www.zbtorch.cn/book/{{$item->enname}}.html</loc>
+        <loc>http://www.{{$host}}/book/{{$item->enname}}.html</loc>
         <lastmod>{{date('Y-m-d')}}</lastmod>
         <changefreq>always</changefreq>
         <priority>1.0</priority>
