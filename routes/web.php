@@ -11,7 +11,6 @@
 |
 */
 
-
 function checkhost(){
 //    $host = str_after($_SERVER['HTTP_HOST'],'.');
 //    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
@@ -22,7 +21,7 @@ function checkhost(){
 //    }
 }
 
-Route::get('tt11',function (){
+Route::get('tt1111',function (){
     $yuming =  \App\Yuming::all();
     foreach ($yuming as $item){
         echo $item->host;
