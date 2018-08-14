@@ -11,17 +11,31 @@
 |
 */
 
-function checkhost(){
-//    $host = str_after($_SERVER['HTTP_HOST'],'.');
-//    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
-//    foreach ($dbyuming as $item){
-//        if ($host == $item->host){
-//            return $yuming = $item->host;
-//        }
-//    }
+function tobehost(){
+    $host = str_after($_SERVER['HTTP_HOST'],'.');
+    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
+    foreach ($dbyuming as $item){
+        if ($host == $item->host){
+            return redirect($host);
+        }
+    }
 }
 
-Route::get('tt1111',function (){
+tobehost();
+
+function checkhost(){
+    $host = str_after($_SERVER['HTTP_HOST'],'.');
+    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
+    foreach ($dbyuming as $item){
+        if ($host == $item->host){
+            return $yuming = $item->host;
+        }
+    }
+}
+
+
+
+Route::get('sda',function (){
     $yuming =  \App\Yuming::all();
     foreach ($yuming as $item){
         echo $item->host;
