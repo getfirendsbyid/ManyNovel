@@ -11,21 +11,6 @@
 |
 */
 
-function tobehost(){
-    $pre = str_before($_SERVER['HTTP_HOST'],'.');
-    if ($pre !='www'){
-        $host = str_after($_SERVER['HTTP_HOST'],'.');
-        $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
-        foreach ($dbyuming as $item){
-            if ($host == $item->host){
-                header('location:http://www.'.$host);
-            }
-        }
-    }
-}
-
-tobehost();
-
 function checkhost(){
     $host = str_after($_SERVER['HTTP_HOST'],'.');
     $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
