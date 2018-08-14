@@ -16,7 +16,7 @@ function tobehost(){
     $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
     foreach ($dbyuming as $item){
         if ($host == $item->host){
-            header('location:http://www'.$host);
+            header('location:http://www.'.$host);
         }
     }
 }
