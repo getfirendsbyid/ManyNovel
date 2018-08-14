@@ -11,18 +11,6 @@
 |
 */
 
-function tobehost(){
-    $host = str_after($_SERVER['HTTP_HOST'],'.');
-    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
-    foreach ($dbyuming as $item){
-        if ($host == $item->host){
-            header('location:http://www.'.$host);
-        }
-    }
-}
-
-tobehost();
-
 function checkhost(){
     $host = str_after($_SERVER['HTTP_HOST'],'.');
     $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
@@ -48,6 +36,10 @@ Route::get('sda',function (){
 
 Route::get('sitemap.xml','HomeController@sitemap'); //网站sitemap
 Route::get('home','NovelController@index'); //队列工具
+
+Route::domain(checkhost())->group(function () {
+    header('location:http://www.'.checkhost());
+});
 
 Route::domain('www.'.checkhost())->group(function () {
     Route::middleware(['CountSpider','cacheResponse:5'])->get('/','HomeController@index');
