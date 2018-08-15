@@ -40,6 +40,10 @@ function deletespace($url)
 Route::get('sitemap.xml','HomeController@sitemap'); //网站sitemap
 Route::get('home','NovelController@index'); //队列工具
 
+Route::domain(checkhost())->group(function () {
+    Route::middleware(['cacheResponse:5'])->get('/','HomeController@index');
+});
+
 Route::domain('www.'.checkhost())->group(function () {
     Route::middleware(['cacheResponse:5'])->get('/','HomeController@index');
 });
