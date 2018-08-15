@@ -57,10 +57,9 @@ class HomeController extends Controller
         }
     }
 
-
     public function nav($navname)
     {
-        $where = ['hostid'=>$this->yuming->id,'enname'=>$navname];
+        $where = ['hostid'=>4,'enname'=>$navname];
         $nav = Nav::where($where)->first();
         if (empty($nav)){
             return view($this->yuming->templet_name.'.nopage')->with(['nav'=>$this->nav,'host'=>$this->domain]);
@@ -121,7 +120,7 @@ class HomeController extends Controller
     {
         $data = $request->input('data');
         $res =   Novel::where('name','like','%'.$data.'%')->get();
-        return view($this->yuming->templet_name.'.search')->with(['novel'=>$res,'nav'=>$this->nav,'host'=>$this->domain]);
+        return view($this->yuming->templet_name.'.search')->with(['tdk'=>$this->tdk,'novel'=>$res,'nav'=>$this->nav,'host'=>$this->domain]);
     }
 
     public function sitemap()
@@ -138,11 +137,36 @@ class HomeController extends Controller
         return view($this->yuming->templet_name.'.nopage')->with(['nav'=>$this->nav,'host'=>$this->domain]);
     }
 
-    public function tt()
+    public function getnginxconf()
     {
         $yuming =  Yuming::all();
         foreach ($yuming as $item){
-           echo $item->host;
+            $host = fopen('host/'.$item->host.'.conf','w');
+            fwrite($host, 'server'."\r\n");
+            fwrite($host, '{'."\r\n");
+            fwrite($host, 'listen '.$item->ipbelongto.';'."\r\n");
+            fwrite($host, 'server_name _;'."\r\n");
+            fwrite($host, 'index index.html index.htm index.php;'."\r\n");
+            fwrite($host, 'root  /home/wwwroot/ManyNovel/public;'."\r\n");
+            fwrite($host, 'include enable-php.conf;'."\r\n");
+            fwrite($host, 'if ($http_host ~ "^'.$item->host.'$") {'."\r\n");
+            fwrite($host, 'rewrite  ^(.*)    http://www.'.$item->host.'$1 permanent;'."\r\n");
+            fwrite($host, '}'."\r\n");
+            fwrite($host, 'location / {'."\r\n");
+            fwrite($host, 'try_files $uri $uri/ /index.php?$query_string;'."\r\n");
+            fwrite($host, '}'."\r\n");
+            fwrite($host, '}'."\r\n");
+            fclose($host);
+            echo 'success file';
+            echo '<br>';
+        }
+    }
+
+    public function test()
+    {
+        $item =  Yuming::all();
+        foreach ($item as $items){
+            echo $items->host;
             echo '<br>';
         }
     }

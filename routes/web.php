@@ -29,14 +29,16 @@ Route::get('sda',function (){
     }
 }); //队列工具
 
- function deletespace($url)
+Route::get('test122','HomeController@test');
+
+
+function deletespace($url)
 {
     return  str_replace(array("\r\n", "\r", "\n" ,"\t"), "", $url);
 }
 
 Route::get('sitemap.xml','HomeController@sitemap'); //网站sitemap
 Route::get('home','NovelController@index'); //队列工具
-
 
 Route::domain('www.'.checkhost())->group(function () {
     Route::middleware(['CountSpider','cacheResponse:5'])->get('/','HomeController@index');
@@ -56,7 +58,7 @@ Route::get('/book/{bookid}/{chapterid}','HomeController@show');
 //Route::get('test','HomeController@test');
 
 Route::get('hentai','AdminController@login');
-Route::get('/{nav}','HomeController@nav');
+Route::get('{nav}','HomeController@nav');
 Route::get('spider/getwebname','SpiderController@getwebname');
 Route::get('spider/getbookname','SpiderController@getbookname');
 Route::get('spider/getnoveldesc','SpiderController@getnoveldesc');
