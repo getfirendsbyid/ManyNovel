@@ -103,7 +103,6 @@
 </footer>
 <div class="visible-xs-block footer-bar-placeholder"></div>
 
-
 <!--手机底部菜单 -->
 <div class="overlay overlay-contentscale">
     <div class="row list">
