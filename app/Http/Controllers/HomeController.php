@@ -34,7 +34,6 @@ class HomeController extends Controller
     public function fan($account)
     {
         $novel =  Novel::where(['enname'=>$account])->first();
-
         if (empty($novel)){
             return view($this->yuming->templet_name.'.nopage')->with(['nav'=>$this->nav,'host'=>$this->domain]);
         }else{

@@ -41,15 +41,15 @@ Route::get('sitemap.xml','HomeController@sitemap'); //网站sitemap
 Route::get('home','NovelController@index'); //队列工具
 
 Route::domain('www.'.checkhost())->group(function () {
-    Route::middleware(['CountSpider','cacheResponse:5'])->get('/','HomeController@index');
+    Route::middleware(['cacheResponse:5'])->get('/','HomeController@index');
 });
 
 Route::domain('zhannei.'.checkhost())->group(function () {
-    Route::middleware(['CountSpider','cacheResponse:5'])->get('/search','HomeController@search');
+    Route::middleware(['cacheResponse:5'])->get('/search','HomeController@search');
 });
 
 Route::domain('{account}.'.checkhost())->group(function ($account) {
-    Route::middleware(['CountSpider','cacheResponse:5'])->get('/','HomeController@fan');
+    Route::middleware(['cacheResponse:5'])->get('/','HomeController@fan');
 });
 
 Route::get('/book/{bookname}','HomeController@chapterlist');
