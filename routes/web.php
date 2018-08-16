@@ -12,24 +12,14 @@
 */
 
 function checkhost(){
-//    $host = str_after($_SERVER['HTTP_HOST'],'.');
-//    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
-//    foreach ($dbyuming as $item){
-//        if ($host == $item->host){
-//            return $yuming = $item->host;
-//        }
-//    }
-}
-
-Route::get('sda',function (){
-    $yuming =  \App\Yuming::all();
-    foreach ($yuming as $item){
-        echo $item->host;
-        echo '<br>';
+    $host = str_after($_SERVER['HTTP_HOST'],'.');
+    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
+    foreach ($dbyuming as $item){
+        if ($host == $item->host){
+            return $yuming = $item->host;
+        }
     }
-}); //队列工具
-
-Route::get('test122','HomeController@test');
+}
 
 function deletespace($url)
 {
@@ -39,10 +29,6 @@ function deletespace($url)
 Route::get('sitemap.xml','HomeController@sitemap'); //网站sitemap
 Route::get('silian.xml','HomeController@silian'); //网站死链
 Route::get('home','NovelController@index'); //队列工具
-
-Route::domain(checkhost())->group(function () {
-    Route::middleware(['cacheResponse:5'])->get('/','HomeController@index');
-});
 
 Route::domain('www.'.checkhost())->group(function () {
     Route::middleware(['cacheResponse:5'])->get('/','HomeController@index');
