@@ -161,15 +161,6 @@ class HomeController extends Controller
         }
     }
 
-    public function test()
-    {
-        $item =  Yuming::all();
-        foreach ($item as $items){
-            echo $items->host;
-            echo '<br>';
-        }
-    }
-
     public function silian()
     {
         $data = file('silian.txt');
