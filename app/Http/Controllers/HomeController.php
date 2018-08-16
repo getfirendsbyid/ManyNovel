@@ -170,4 +170,10 @@ class HomeController extends Controller
         }
     }
 
+    public function silian()
+    {
+        $data = file('silian.txt');
+        return response()->view($this->yuming->templet_name.'.silian',compact('data'))->header('Content-Type', 'text/xml');
+    }
+
 }
