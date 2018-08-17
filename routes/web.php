@@ -21,8 +21,6 @@ function checkhost(){
     }
 }
 
-Route::get('test11','')
-
 function deletespace($url)
 {
     return  str_replace(array("\r\n", "\r", "\n" ,"\t"), "", $url);
