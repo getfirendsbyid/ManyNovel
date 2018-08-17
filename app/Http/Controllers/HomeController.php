@@ -167,4 +167,5 @@ class HomeController extends Controller
         return response()->view($this->yuming->templet_name.'.silian',compact('data'))->header('Content-Type', 'text/xml');
     }
 
+
 }

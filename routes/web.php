@@ -21,6 +21,8 @@ function checkhost(){
     }
 }
 
+Route::get('test11','')
+
 function deletespace($url)
 {
     return  str_replace(array("\r\n", "\r", "\n" ,"\t"), "", $url);
@@ -44,8 +46,6 @@ Route::domain('{account}.'.checkhost())->group(function ($account) {
 
 Route::get('/book/{bookname}','HomeController@chapterlist');
 Route::get('/book/{bookid}/{chapterid}','HomeController@show');
-
-//Route::get('test','HomeController@test');
 
 Route::get('hentai','AdminController@login');
 Route::get('{nav}','HomeController@nav');
