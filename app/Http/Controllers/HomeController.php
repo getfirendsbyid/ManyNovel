@@ -99,7 +99,7 @@ class HomeController extends Controller
             ->where(['chapterid'=>$chapterid])
             ->join('chapter','chapter.id','=','content.chapterid')
             ->first();
-        $chapter->chapter_content = str_replace(chr(194) . chr(160).chr(194) . chr(160).chr(194) . chr(160).chr(194) . chr(160), "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;", $chapter->content);
+        $chapter->content = str_replace(chr(194) . chr(160).chr(194) . chr(160).chr(194) . chr(160).chr(194) . chr(160), "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;", $chapter->content);
 
         $novel =  Novel::find($bookid);
         $nav = Nav::find($novel->navid);
