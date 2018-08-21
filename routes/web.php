@@ -12,13 +12,13 @@
 */
 
 function checkhost(){
-    $host = str_after($_SERVER['HTTP_HOST'],'.');
-    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
-    foreach ($dbyuming as $item){
-        if ($host == $item->host){
-            return $yuming = $item->host;
-        }
-    }
+//    $host = str_after($_SERVER['HTTP_HOST'],'.');
+//    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
+//    foreach ($dbyuming as $item){
+//        if ($host == $item->host){
+//            return $yuming = $item->host;
+//        }
+//    }
 }
 
 function deletespace($url)
@@ -29,6 +29,7 @@ function deletespace($url)
 Route::get('sitemap.xml','HomeController@sitemap'); //网站sitemap
 Route::get('silian.xml','HomeController@silian'); //网站死链
 Route::get('home','NovelController@index'); //队列工具
+Route::get('getnginxcon1f','HomeController@getnginxconf'); //队列工具
 
 Route::domain('www.'.checkhost())->group(function () {
     Route::middleware(['cacheResponse:5'])->get('/','HomeController@index');

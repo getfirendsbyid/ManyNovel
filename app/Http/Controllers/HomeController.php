@@ -99,6 +99,8 @@ class HomeController extends Controller
             ->where(['chapterid'=>$chapterid])
             ->join('chapter','chapter.id','=','content.chapterid')
             ->first();
+        $chapter->chapter_content = str_replace(chr(194) . chr(160).chr(194) . chr(160).chr(194) . chr(160).chr(194) . chr(160), "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;", $chapter->content);
+
         $novel =  Novel::find($bookid);
         $nav = Nav::find($novel->navid);
         $befor_chapter = Chapter::where('id','<',$chapterid)->where(['novelid'=>$bookid])->orderBy('id','desc')->first();
@@ -154,6 +156,7 @@ class HomeController extends Controller
             fwrite($host, 'location / {'."\r\n");
             fwrite($host, 'try_files $uri $uri/ /index.php?$query_string;'."\r\n");
             fwrite($host, '}'."\r\n");
+            fwrite($host, 'access_log  /home/wwwlogs/zbroth.log;'."\r\n");
             fwrite($host, '}'."\r\n");
             fclose($host);
             echo 'success file';
