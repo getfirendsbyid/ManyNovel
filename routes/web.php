@@ -12,13 +12,13 @@
 */
 
 function checkhost(){
-//    $host = str_after($_SERVER['HTTP_HOST'],'.');
-//    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
-//    foreach ($dbyuming as $item){
-//        if ($host == $item->host){
-//            return $yuming = $item->host;
-//        }
-//    }
+    $host = str_after($_SERVER['HTTP_HOST'],'.');
+    $dbyuming =  \Illuminate\Support\Facades\DB::table('yuming')->select('host')->get()->toArray();
+    foreach ($dbyuming as $item){
+        if ($host == $item->host){
+            return $yuming = $item->host;
+        }
+    }
 }
 
 function deletespace($url)
